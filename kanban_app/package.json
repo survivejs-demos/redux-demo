@@ -22,16 +22,18 @@
     "html-webpack-plugin": "^1.6.0",
     "node-libs-browser": "^0.5.2",
     "react-hot-loader": "^1.2.8",
+    "redux-devtools": "^2.0.0",
     "style-loader": "^0.12.3",
     "webpack": "^1.10.1",
     "webpack-dev-server": "^1.10.1",
     "webpack-merge": "^0.1.2"
   },
   "dependencies": {
-    "alt": "^0.17.1",
     "array.prototype.findindex": "^1.0.0",
     "node-uuid": "^1.4.3",
     "react": "^0.13.3",
-    "react-dnd": "^1.1.4"
+    "react-dnd": "^1.1.4",
+    "react-redux": "^2.0.0",
+    "redux": "^2.0.0"
   }
 }
