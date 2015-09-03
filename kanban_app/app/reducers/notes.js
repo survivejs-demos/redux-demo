@@ -5,13 +5,19 @@ const initialState = [];
 export default function lanes(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_NOTE:
-      return [];
+      console.log('create note');
+
+      return state;
 
     case types.UPDATE_NOTE:
-      return [];
+      console.log('update note');
+
+      return state;
 
     case types.DELETE_NOTE:
-      return [];
+      console.log('delete note');
+
+      return state;
 
     default:
       return state;

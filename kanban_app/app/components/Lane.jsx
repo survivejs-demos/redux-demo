@@ -33,11 +33,10 @@ export default class Lane extends React.Component {
     this.editName = this.editName.bind(this, id);
   }
   render() {
-    const {connectDropTarget, id, name, notes,
+    const {connectDropTarget, id, name, allNotes, notes,
       laneActions, noteActions, ...props} = this.props;
 
-    // XXX: pass items to Notes
-    // items: () => NoteStore.get(notes)
+    // XXX: filter allNotes using notes ids and pass those to `Notes`
     return connectDropTarget(
       <div {...props}>
         <div className='lane-header'>
@@ -48,37 +47,41 @@ export default class Lane extends React.Component {
           </div>
         </div>
         <Notes
+          items={[]}
           onEdit={this.editNote}
           onDelete={this.deleteNote} />
       </div>
     );
   }
   addNote(laneId) {
-    // XXX
-    /*
-    NoteActions.create({task: 'New task'});
-    LaneActions.attachToLane({laneId});
-    */
+    const noteActions = this.props.noteActions;
+    const laneActions = this.props.laneActions;
+
+    noteActions.createNote({
+      task: 'New task'
+    });
+    laneActions.attachToLane(laneId);
   }
   editNote(id, task) {
-    // XXX
-    //NoteActions.update({id, task});
+    const noteActions = this.props.noteActions;
+
+    noteActions.updateNote(id, task);
   }
   deleteNote(laneId, noteId) {
-    // XXX
-    /*
-    NoteActions.delete(noteId);
-    LaneActions.detachFromLane({laneId, noteId});
-    */
+    const noteActions = this.props.noteActions;
+    const laneActions = this.props.laneActions;
+
+    noteActions.deleteNote(noteId);
+    laneActions.detachFromLane(laneId, noteId);
   }
   editName(id, name) {
-    const actions = this.props.laneActions;
+    const laneActions = this.props.laneActions;
 
     if(name) {
-      actions.updateLane(id, name);
+      laneActions.updateLane(id, name);
     }
     else {
-      actions.deleteLane(id);
+      laneActions.deleteLane(id);
     }
   }
 }

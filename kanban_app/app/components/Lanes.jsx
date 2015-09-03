@@ -16,7 +16,7 @@ export default class Lanes extends React.Component {
     const {notes, laneActions, noteActions} = this.props;
 
     return <Lane className='lane' key={`lane${lane.id}`}
-      notes={notes} laneActions={laneActions} noteActions={noteActions}
+      allNotes={notes} laneActions={laneActions} noteActions={noteActions}
       {...lane} />;
   }
 }

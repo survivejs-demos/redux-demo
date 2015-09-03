@@ -24,12 +24,18 @@ export default function lanes(state = initialState, action) {
       return state.filter((lane) => lane.id !== action.id);
 
     case types.ATTACH_TO_LANE:
+      console.log('attach to lane');
+
       return state;
 
     case types.DETACH_FROM_LANE:
+      console.log('detach from lane');
+
       return state;
 
     case types.MOVE_FROM_LANE_TO_LANE:
+      console.log('move from lane to lane');
+
       return state;
 
     default:
