@@ -1,4 +1,5 @@
 import uuid from 'node-uuid';
+import update from 'react/lib/update';
 import * as types from '../constants/LaneActionTypes';
 
 const initialState = [];
@@ -44,7 +45,38 @@ export default function lanes(state = initialState, action) {
       });
 
     case types.MOVE:
-      console.log('move from lane to lane');
+      const sourceId = action.sourceId;
+      const targetId = action.targetId;
+
+      const lanes = state;
+      const sourceLane = lanes.filter((lane) => {
+        return lane.notes.indexOf(sourceId) >= 0;
+      })[0];
+      const targetLane = lanes.filter((lane) => {
+        return lane.notes.indexOf(targetId) >= 0;
+      })[0];
+      const sourceNoteIndex = sourceLane.notes.indexOf(sourceId);
+      const targetNoteIndex = targetLane.notes.indexOf(targetId);
+
+      if(sourceLane === targetLane) {
+        return state.map((lane) => {
+          return lane.id === sourceLane.id ? Object.assign({}, lane, {
+            notes: update(sourceLane.notes, {
+              $splice: [
+                [sourceNoteIndex, 1],
+                [targetNoteIndex, 0, sourceId]
+              ]
+            })
+          }) : lane;
+        });
+      }
+      else {
+        // get rid of the source
+        sourceLane.notes.splice(sourceNoteIndex, 1);
+
+        // and move it to target
+        targetLane.notes.splice(targetNoteIndex, 0, sourceId);
+      }
 
       return state;
 
