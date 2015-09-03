@@ -9,17 +9,20 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import App from './containers/App.jsx';
 import configureStore from './store/configureStore';
-//import storage from './libs/storage';
-//import persist from './libs/persist';
+import storage from './libs/storage';
 
-const store = configureStore();
+const APP_STORAGE = 'app';
+
+const store = configureStore(storage.get(APP_STORAGE) || {});
 
 main();
 
 function main() {
-  // XXX: figure out a neat way to implement this
-  // middleware + load initial state somehow?
-  //persist(alt, storage, 'app');
+  store.subscribe(() => {
+    if(!storage.get('debug')) {
+      storage.set(APP_STORAGE, store.getState());
+    }
+  });
 
   if(process.env.NODE_ENV === 'production') {
     React.render(
