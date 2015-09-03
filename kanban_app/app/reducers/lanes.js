@@ -14,19 +14,21 @@ export default function lanes(state = initialState, action) {
       return [lane, ...state];
 
     case types.UPDATE_LANE:
-      return [];
+      console.log('update lane', action);
+
+      return state;
 
     case types.DELETE_LANE:
-      return [];
+      return state;
 
     case types.ATTACH_TO_LANE:
-      return [];
+      return state;
 
     case types.DETACH_FROM_LANE:
-      return [];
+      return state;
 
     case types.MOVE_FROM_LANE_TO_LANE:
-      return [];
+      return state;
 
     default:
       return state;

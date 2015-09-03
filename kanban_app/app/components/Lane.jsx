@@ -33,7 +33,8 @@ export default class Lane extends React.Component {
     this.editName = this.editName.bind(this, id);
   }
   render() {
-    const {connectDropTarget, id, name, notes, ...props} = this.props;
+    const {connectDropTarget, id, name, notes,
+      laneActions, noteActions, ...props} = this.props;
 
     // XXX: pass items to Notes
     // items: () => NoteStore.get(notes)
@@ -71,14 +72,13 @@ export default class Lane extends React.Component {
     */
   }
   editName(id, name) {
-    // XXX
-    /*
+    const actions = this.props.laneActions;
+
     if(name) {
-      LaneActions.update({id, name});
+      actions.updateLane(id, name);
     }
     else {
-      LaneActions.delete(id);
+      actions.deleteLane(id);
     }
-    */
   }
 }
