@@ -24,15 +24,15 @@ export default function lanes(state = initialState, action) {
       return state.filter((lane) => lane.id !== action.id);
 
     case types.ATTACH_TO_LANE:
-      // XXX: how to get the note id here in a nice way?
-      console.log('attach to lane', action);
+      const laneId = action.laneId;
+      const noteId = action.noteId;
 
-      return state;
-
-    case types.DETACH_FROM_LANE:
-      console.log('detach from lane');
-
-      return state;
+      // XXX: get rid of a note that might be in the structure already
+      return state.map((lane) => {
+        return lane.id === laneId ? Object.assign({}, lane, {
+          notes: [...lane.notes, noteId]
+        }) : lane;
+      });
 
     case types.MOVE_FROM_LANE_TO_LANE:
       console.log('move from lane to lane');

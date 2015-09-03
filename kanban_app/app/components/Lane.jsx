@@ -36,7 +36,6 @@ export default class Lane extends React.Component {
     const {connectDropTarget, id, name, allNotes, notes,
       laneActions, noteActions, ...props} = this.props;
 
-    // XXX: filter allNotes using notes ids and pass those to `Notes`
     return connectDropTarget(
       <div {...props}>
         <div className='lane-header'>
@@ -47,7 +46,7 @@ export default class Lane extends React.Component {
           </div>
         </div>
         <Notes
-          items={[]}
+          items={allNotes.filter((note) => notes.indexOf(note.id) >= 0)}
           onEdit={this.editNote}
           onDelete={this.deleteNote} />
       </div>
@@ -57,10 +56,10 @@ export default class Lane extends React.Component {
     const noteActions = this.props.noteActions;
     const laneActions = this.props.laneActions;
 
-    noteActions.createNote({
+    const o = noteActions.createNote({
       task: 'New task'
     });
-    laneActions.attachToLane(laneId);
+    laneActions.attachToLane(laneId, o.note.id);
   }
   editNote(id, task) {
     const noteActions = this.props.noteActions;
@@ -72,7 +71,6 @@ export default class Lane extends React.Component {
     const laneActions = this.props.laneActions;
 
     noteActions.deleteNote(noteId);
-    laneActions.detachFromLane(laneId, noteId);
   }
   editName(id, name) {
     const laneActions = this.props.laneActions;
