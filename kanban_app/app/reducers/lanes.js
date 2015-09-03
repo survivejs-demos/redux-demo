@@ -1,3 +1,4 @@
+import uuid from 'node-uuid';
 import * as types from '../constants/LaneActionTypes';
 
 const initialState = [];
@@ -5,7 +6,12 @@ const initialState = [];
 export default function lanes(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_LANE:
-      return [];
+      const lane = action.lane;
+
+      lane.id = uuid.v4();
+      lane.notes = lane.notes || [];
+
+      return [lane, ...state];
 
     case types.UPDATE_LANE:
       return [];
