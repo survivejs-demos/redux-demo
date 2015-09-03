@@ -2,9 +2,13 @@ import 'array.prototype.findindex';
 import './main.css';
 
 import React from 'react';
+import {Provider} from 'react-redux';
 import App from './components/App.jsx';
-import storage from './libs/storage';
+import configureStore from './store/configureStore';
+//import storage from './libs/storage';
 //import persist from './libs/persist';
+
+const store = configureStore();
 
 main();
 
@@ -12,13 +16,21 @@ function main() {
   //persist(alt, storage, 'app');
 
   if(process.env.NODE_ENV === 'production') {
-    React.render(<App />, document.getElementById('app'));
+    React.render(
+      <Provider store={store}>
+        {() => <App />}
+      </Provider>,
+      document.getElementById('app'));
   }
   if(process.env.NODE_ENV !== 'production') {
     const app = document.createElement('div');
 
     document.body.appendChild(app);
 
-    React.render(<App />, app);
+    React.render(
+      <Provider store={store}>
+        {() => <App />}
+      </Provider>,
+      app);
   }
 }
