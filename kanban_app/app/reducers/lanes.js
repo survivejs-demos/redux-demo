@@ -11,7 +11,7 @@ export default function lanes(state = initialState, action) {
       lane.id = uuid.v4();
       lane.notes = lane.notes || [];
 
-      return [lane, ...state];
+      return [...state, lane];
 
     case types.UPDATE_LANE:
       return state.map((lane) => {
