@@ -1,47 +1,47 @@
 import * as types from '../constants/LaneActionTypes';
 
-export createLane(lane) => {
+export function createLane(lane) {
   return {
     type: types.CREATE_LANE,
     lane
   };
-}
+};
 
-export updateLane(id, name) => {
+export function updateLane(id, name) {
   return {
     type: types.UPDATE_LANE,
     id,
     name
   };
-}
+};
 
-export deleteLane(id) => {
+export function deleteLane(id) {
   return {
     type: types.DELETE_LANE,
     id
   };
-}
+};
 
-export attachToLane(laneId, noteId) => {
+export function attachToLane(laneId, noteId) {
   return {
     type: types.ATTACH_TO_LANE,
     laneId,
     noteId
   };
-}
+};
 
-export detachFromLane(laneId, noteId) => {
+export function detachFromLane(laneId, noteId) {
   return {
     type: types.DETACH_FROM_LANE,
     laneId,
     noteId
   };
-}
+};
 
-export moveFromLaneToLane(sourceId, targetId) => {
+export function moveFromLaneToLane(sourceId, targetId) {
   return {
     type: types.MOVE_FROM_LANE_TO_LANE,
     sourceId,
     targetId
   };
-}
+};
