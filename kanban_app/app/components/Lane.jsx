@@ -1,9 +1,5 @@
-import AltContainer from 'alt/AltContainer';
 import React from 'react';
 import Notes from './Notes.jsx';
-import NoteActions from '../actions/NoteActions';
-import NoteStore from '../stores/NoteStore';
-import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
 import {DropTarget} from 'react-dnd';
 import ItemTypes from '../libs/itemTypes';
@@ -14,10 +10,11 @@ const noteTarget = {
     const sourceId = sourceProps.id;
 
     if(!targetProps.notes.length) {
-      LaneActions.attachToLane({
+      // XXX
+      /*LaneActions.attachToLane({
         laneId: targetProps.id,
         noteId: sourceId
-      });
+      });*/
     }
   }
 };
@@ -38,6 +35,8 @@ export default class Lane extends React.Component {
   render() {
     const {connectDropTarget, id, name, notes, ...props} = this.props;
 
+    // XXX: pass items to Notes
+    // items: () => NoteStore.get(notes)
     return connectDropTarget(
       <div {...props}>
         <div className='lane-header'>
@@ -47,36 +46,39 @@ export default class Lane extends React.Component {
             <button onClick={this.addNote}>+</button>
           </div>
         </div>
-        <AltContainer
-          stores={[NoteStore]}
-          inject={ {
-            items: () => NoteStore.get(notes)
-          } }
-        >
-          <Notes
-            onEdit={this.editNote}
-            onDelete={this.deleteNote} />
-        </AltContainer>
+        <Notes
+          onEdit={this.editNote}
+          onDelete={this.deleteNote} />
       </div>
     );
   }
   addNote(laneId) {
+    // XXX
+    /*
     NoteActions.create({task: 'New task'});
     LaneActions.attachToLane({laneId});
+    */
   }
   editNote(id, task) {
-    NoteActions.update({id, task});
+    // XXX
+    //NoteActions.update({id, task});
   }
   deleteNote(laneId, noteId) {
+    // XXX
+    /*
     NoteActions.delete(noteId);
     LaneActions.detachFromLane({laneId, noteId});
+    */
   }
   editName(id, name) {
+    // XXX
+    /*
     if(name) {
       LaneActions.update({id, name});
     }
     else {
       LaneActions.delete(id);
     }
+    */
   }
 }

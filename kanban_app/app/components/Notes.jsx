@@ -1,7 +1,6 @@
 import React from 'react';
 import Editable from './Editable.jsx';
 import Note from './Note.jsx';
-import LaneActions from '../actions/LaneActions';
 
 export default class Notes extends React.Component {
   constructor(props) {
@@ -15,8 +14,9 @@ export default class Notes extends React.Component {
     return <ul className='notes'>{notes.map(this.renderNote)}</ul>;
   }
   renderNote(note) {
+    // XXX: LaneActions.move
     return (
-      <Note className='note' onMove={LaneActions.move}
+      <Note className='note' onMove={() => {}}
         id={note.id} key={`note${note.id}`}>
         <Editable
           value={note.task}
