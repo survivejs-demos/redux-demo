@@ -17,6 +17,8 @@ const store = configureStore();
 main();
 
 function main() {
+  // XXX: figure out a neat way to implement this
+  // middleware + load initial state somehow?
   //persist(alt, storage, 'app');
 
   if(process.env.NODE_ENV === 'production') {
