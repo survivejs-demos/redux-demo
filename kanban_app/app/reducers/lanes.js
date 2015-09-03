@@ -27,8 +27,17 @@ export default function lanes(state = initialState, action) {
       const laneId = action.laneId;
       const noteId = action.noteId;
 
-      // XXX: get rid of a note that might be in the structure already
       return state.map((lane) => {
+        const index = lane.notes.indexOf(noteId);
+
+        if(index >= 0) {
+          lane.notes = lane.notes.slice(0, index).concat(
+            lane.notes.slice(index + 1)
+          );
+        }
+
+        return lane;
+      }).map((lane) => {
         return lane.id === laneId ? Object.assign({}, lane, {
           notes: [...lane.notes, noteId]
         }) : lane;
