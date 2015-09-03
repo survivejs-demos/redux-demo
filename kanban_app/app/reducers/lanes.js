@@ -43,7 +43,7 @@ export default function lanes(state = initialState, action) {
         }) : lane;
       });
 
-    case types.MOVE_FROM_LANE_TO_LANE:
+    case types.MOVE:
       console.log('move from lane to lane');
 
       return state;

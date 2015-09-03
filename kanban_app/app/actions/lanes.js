@@ -30,9 +30,9 @@ export function attachToLane(laneId, noteId) {
   };
 };
 
-export function moveFromLaneToLane(sourceId, targetId) {
+export function move(sourceId, targetId) {
   return {
-    type: types.MOVE_FROM_LANE_TO_LANE,
+    type: types.MOVE,
     sourceId,
     targetId
   };

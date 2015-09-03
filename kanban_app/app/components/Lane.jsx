@@ -10,11 +10,10 @@ const noteTarget = {
     const sourceId = sourceProps.id;
 
     if(!targetProps.notes.length) {
-      // XXX
-      /*LaneActions.attachToLane({
-        laneId: targetProps.id,
-        noteId: sourceId
-      });*/
+      targetProps.laneActions.attachToLane(
+        targetProps.id,
+        sourceId
+      );
     }
   }
 };
@@ -47,6 +46,7 @@ export default class Lane extends React.Component {
           </div>
         </div>
         <Notes
+          laneActions={laneActions}
           items={allNotes.filter((note) => notes.indexOf(note.id) >= 0)}
           onEdit={this.editNote}
           onDelete={this.deleteNote} />
