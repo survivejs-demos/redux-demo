@@ -1,4 +1,8 @@
 import 'array.prototype.findindex';
+import assign from 'es6-object-assign';
+
+assign.polyfill();
+
 import './main.css';
 
 import React from 'react';

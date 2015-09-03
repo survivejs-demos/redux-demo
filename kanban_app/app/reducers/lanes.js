@@ -14,9 +14,11 @@ export default function lanes(state = initialState, action) {
       return [lane, ...state];
 
     case types.UPDATE_LANE:
-      console.log('update lane', action);
-
-      return state;
+      return state.map((lane) => {
+        return lane.id === action.id ? Object.assign({}, lane, {
+          name: action.name
+        }) : lane;
+      });
 
     case types.DELETE_LANE:
       return state;

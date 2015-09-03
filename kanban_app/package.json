@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "array.prototype.findindex": "^1.0.0",
+    "es6-object-assign": "^1.0.1",
     "node-uuid": "^1.4.3",
     "react": "^0.13.3",
     "react-dnd": "^1.1.4",
