@@ -13,9 +13,11 @@ export default function notes(state = initialState, action) {
       return [...state, note];
 
     case types.UPDATE_NOTE:
-      console.log('update note', action);
-
-      return state;
+      return state.map((note) => {
+        return note.id === action.id ? Object.assign({}, note, {
+          task: action.task
+        }) : note;
+      });
 
     case types.DELETE_NOTE:
       console.log('delete note');
