@@ -10,7 +10,6 @@ export default class Lanes extends React.Component {
   render() {
     const {lanes} = this.props;
 
-    // XXX: pass notes and actions to lower in hierarchy
     return <div className='lanes'>{lanes.map(this.renderLane)}</div>;
   }
   renderLane(lane) {
