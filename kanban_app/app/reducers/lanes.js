@@ -21,7 +21,7 @@ export default function lanes(state = initialState, action) {
       });
 
     case types.DELETE_LANE:
-      return state;
+      return state.filter((lane) => lane.id !== action.id);
 
     case types.ATTACH_TO_LANE:
       return state;
