@@ -1,16 +1,19 @@
+import uuid from 'node-uuid';
 import * as types from '../constants/NoteActionTypes';
 
 const initialState = [];
 
-export default function lanes(state = initialState, action) {
+export default function notes(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_NOTE:
-      console.log('create note');
+      const note = action.note;
 
-      return state;
+      note.id = uuid.v4();
+
+      return [...state, note];
 
     case types.UPDATE_NOTE:
-      console.log('update note');
+      console.log('update note', action);
 
       return state;
 

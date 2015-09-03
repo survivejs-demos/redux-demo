@@ -24,7 +24,8 @@ export default function lanes(state = initialState, action) {
       return state.filter((lane) => lane.id !== action.id);
 
     case types.ATTACH_TO_LANE:
-      console.log('attach to lane');
+      // XXX: how to get the note id here in a nice way?
+      console.log('attach to lane', action);
 
       return state;
 
