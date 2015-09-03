@@ -35,6 +35,9 @@ export default class Lane extends React.Component {
   render() {
     const {connectDropTarget, id, name, allNotes, notes,
       laneActions, noteActions, ...props} = this.props;
+    const laneNotes = notes.map((id) => allNotes[
+      allNotes.findIndex((note) => note.id === id)
+    ]);
 
     return connectDropTarget(
       <div {...props}>
@@ -47,7 +50,7 @@ export default class Lane extends React.Component {
         </div>
         <Notes
           laneActions={laneActions}
-          items={allNotes.filter((note) => notes.indexOf(note.id) >= 0)}
+          items={laneNotes}
           onEdit={this.editNote}
           onDelete={this.deleteNote} />
       </div>
