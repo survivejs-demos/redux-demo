@@ -1,6 +1,8 @@
 import { createStore, compose } from 'redux';
 import { reduxReactRouter, ReduxRouter } from 'redux-router';
-import createHistory from 'history/lib/createBrowserHistory';
+// XXX: createBrowserHistory fails in dev???
+// XXX: what's ?_k=sfsdf
+import createHistory from 'history/lib/createHashHistory';
 import rootReducer from '../reducers';
 
 export default function configureStore(initialState) {
