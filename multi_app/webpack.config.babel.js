@@ -7,7 +7,6 @@ var merge = require('webpack-merge');
 var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var App = require('./app/containers/App.jsx');
 var pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
