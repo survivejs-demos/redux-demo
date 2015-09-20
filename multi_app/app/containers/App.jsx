@@ -30,7 +30,7 @@ export default class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    routeName: state.routes.params.name,
+    routeName: state.router.params.name,
     lanes: state.lanes,
     notes: state.notes
   };

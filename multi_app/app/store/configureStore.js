@@ -3,9 +3,9 @@ import { reduxReactRouter, ReduxRouter } from 'redux-router';
 import createHistory from 'history/lib/createBrowserHistory';
 import rootReducer from '../reducers';
 
-export default function configureStore(initialState, routes) {
+export default function configureStore(initialState) {
   const store = compose(
-    reduxReactRouter({routes, createHistory})
+    reduxReactRouter({createHistory})
   )(createStore)(rootReducer, initialState);
 
   if(module.hot) {
