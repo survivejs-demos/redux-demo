@@ -13,6 +13,7 @@ export default function configureStore(initialState) {
     module.hot.accept('../reducers', () => {
       const nextReducer = require('../reducers');
 
+      // XXXXX: fails with routing?
       store.replaceReducer(nextReducer);
     });
   }

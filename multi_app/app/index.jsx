@@ -11,22 +11,25 @@ import { combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
 import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
 import { Route, Link } from 'react-router';
-import App from './containers/App.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
+
+import Home from './views/Home.jsx';
+import Board from './views/Board.jsx';
 
 const APP_STORAGE = 'app';
 
 const store = configureStore(storage.get(APP_STORAGE) || {});
 
 class Root extends React.Component {
+  // XXX: render Home, figure out why routing resets to root
   render() {
     return (
       <div>
         <Provider store={store}>
           <ReduxRouter>
-            <Route path="/" component={App}>
-              <Route path=":name" component={App} />
+            <Route path="/" component={Board}>
+              <Route path=":name" component={Board} />
             </Route>
           </ReduxRouter>
         </Provider>
