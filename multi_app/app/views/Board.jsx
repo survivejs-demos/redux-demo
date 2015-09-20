@@ -1,13 +1,10 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 import Lanes from '../components/Lanes.jsx';
 import * as LaneActions from '../actions/lanes';
 import * as NoteActions from '../actions/notes';
 
-@DragDropContext(HTML5Backend)
 export default class Board extends React.Component {
   render() {
     const {routeName, lanes, notes, dispatch} = this.props;
