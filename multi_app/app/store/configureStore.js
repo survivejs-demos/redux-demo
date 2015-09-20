@@ -1,8 +1,12 @@
-import {createStore} from 'redux';
+import { createStore, compose } from 'redux';
+import { reduxReactRouter, ReduxRouter } from 'redux-router';
+import createHistory from 'history/lib/createBrowserHistory';
 import rootReducer from '../reducers';
 
-export default function configureStore(initialState) {
-  const store = createStore(rootReducer, initialState);
+export default function configureStore(initialState, routes) {
+  const store = compose(
+    reduxReactRouter({routes, createHistory})
+  )(createStore)(rootReducer, initialState);
 
   if(module.hot) {
     // Enable Webpack hot module replacement for reducers

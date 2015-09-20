@@ -13,7 +13,7 @@ var pkg = require('./package.json');
 const TARGET = process.env.npm_lifecycle_event;
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, 'app');
-const APP_TITLE = 'Kanban app';
+const APP_TITLE = 'Multikanban app';
 
 const common = {
   entry: APP_PATH,

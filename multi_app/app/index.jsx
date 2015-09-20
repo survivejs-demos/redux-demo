@@ -6,14 +6,24 @@ assign.polyfill();
 import './main.css';
 
 import React from 'react';
-import {Provider} from 'react-redux';
+import { combineReducers, applyMiddleware, compose } from 'redux'
+import { Provider } from 'react-redux';
+import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
+import { Route, Link } from 'react-router';
 import App from './containers/App.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
 
 const APP_STORAGE = 'app';
 
-const store = configureStore(storage.get(APP_STORAGE) || {});
+// TODO: define a separate entry point for index + use separate stores for each kanban
+const routes = (
+  <Route path="/" component={App}>
+    <Route path=":name" component={App} />
+  </Route>
+);
+
+const store = configureStore(storage.get(APP_STORAGE) || {}, routes);
 
 main();
 
