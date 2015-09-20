@@ -7,9 +7,8 @@ import './main.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux';
-import { reduxReactRouter, routerStateReducer, ReduxRouter } from 'redux-router';
+import { ReduxRouter } from 'redux-router';
 import { Route, Link } from 'react-router';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
