@@ -24,22 +24,13 @@ function main() {
     }
   });
 
-  if(process.env.NODE_ENV === 'production') {
-    React.render(
-      <Provider store={store}>
-        {() => <App />}
-      </Provider>,
-      document.getElementById('app'));
-  }
-  if(process.env.NODE_ENV !== 'production') {
-    const app = document.createElement('div');
+  const app = document.createElement('div');
 
-    document.body.appendChild(app);
+  document.body.appendChild(app);
 
-    React.render(
-      <Provider store={store}>
-        {() => <App />}
-      </Provider>,
-      app);
-  }
+  React.render(
+    <Provider store={store}>
+      {() => <App />}
+    </Provider>,
+    app);
 }

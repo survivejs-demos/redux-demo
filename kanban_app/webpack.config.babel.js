@@ -12,10 +12,14 @@ var pkg = require('./package.json');
 
 const TARGET = process.env.npm_lifecycle_event;
 const ROOT_PATH = path.resolve(__dirname);
+const APP_PATH = path.resolve(ROOT_PATH, 'app');
 const APP_TITLE = 'Kanban app';
 
 const common = {
-  entry: path.resolve(ROOT_PATH, 'app/main.jsx'),
+  entry: APP_PATH,
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: path.resolve(ROOT_PATH, 'build'),
     filename: 'bundle.js'
@@ -34,7 +38,7 @@ if(TARGET === 'start' || !TARGET) {
         {
           test: /\.jsx?$/,
           loaders: ['react-hot', 'babel'],
-          include: path.resolve(ROOT_PATH, 'app')
+          include: APP_PATH
         }
       ]
     },
@@ -56,7 +60,7 @@ if(TARGET === 'start' || !TARGET) {
 if(TARGET === 'build') {
   module.exports = merge(common, {
     entry: {
-      app: path.resolve(ROOT_PATH, 'app/main.jsx'),
+      app: APP_PATH,
       vendor: Object.keys(pkg.dependencies)
     },
     output: {
@@ -69,17 +73,17 @@ if(TARGET === 'build') {
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract('style', 'css'),
-          include: path.resolve(ROOT_PATH, 'app')
+          include: APP_PATH
         },
         {
           test: /\.jsx?$/,
           loaders: ['babel'],
-          include: path.resolve(ROOT_PATH, 'app')
+          include: APP_PATH
         }
       ]
     },
     plugins: [
-      new ExtractTextPlugin('styles.css'),
+      new ExtractTextPlugin('styles.[chunkhash].css'),
       new Clean(['build']),
       new webpack.optimize.CommonsChunkPlugin(
         'vendor',
@@ -97,23 +101,8 @@ if(TARGET === 'build') {
         }
       }),
       new HtmlwebpackPlugin({
-        title: APP_TITLE,
-        templateContent: renderTemplate(
-          fs.readFileSync(path.join(__dirname, 'templates/index.tpl'), 'utf8'),
-          {
-            app: React.renderToString(<App />)
-          })
+        title: APP_TITLE
       })
     ]
   });
-}
-
-function renderTemplate(template, replacements) {
-  return function() {
-    return template.replace(/%(\w*)%/g, function(match) {
-      var key = match.slice(1, -1);
-
-      return replacements[key] ? replacements[key] : match;
-    });
-  };
 }
