@@ -6,5 +6,5 @@ import notes from './notes';
 export default combineReducers({
   lanes,
   notes,
-  routerStateReducer
+  routes: routerStateReducer
 });

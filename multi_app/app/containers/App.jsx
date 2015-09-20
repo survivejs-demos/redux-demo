@@ -10,9 +10,11 @@ import * as NoteActions from '../actions/notes';
 @DragDropContext(HTML5Backend)
 export default class App extends React.Component {
   render() {
-    const {lanes, notes, dispatch} = this.props;
+    const {routeName, lanes, notes, dispatch} = this.props;
     const laneActions = bindActionCreators(LaneActions, dispatch);
     const noteActions = bindActionCreators(NoteActions, dispatch);
+
+    console.log('route', routeName);
 
     return (
       <div>
@@ -28,7 +30,7 @@ export default class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    routerState: state.router,
+    routeName: state.routes.params.name,
     lanes: state.lanes,
     notes: state.notes
   };
