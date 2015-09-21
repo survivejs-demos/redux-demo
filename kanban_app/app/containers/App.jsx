@@ -8,7 +8,7 @@ import * as LaneActions from '../actions/lanes';
 import * as NoteActions from '../actions/notes';
 
 @DragDropContext(HTML5Backend)
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     const {lanes, notes, dispatch} = this.props;
     const laneActions = bindActionCreators(LaneActions, dispatch);
