@@ -11,7 +11,6 @@ import Board from './views/Board.jsx';
 export default (store) => {
   @DragDropContext(HTML5Backend)
   class Root extends React.Component {
-    // XXX: render Home, figure out why routing resets to root
     render() {
       return (
         <div>
