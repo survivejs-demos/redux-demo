@@ -5,7 +5,7 @@ import Lanes from '../components/Lanes.jsx';
 import * as LaneActions from '../actions/lanes';
 import * as NoteActions from '../actions/notes';
 
-export default class Board extends React.Component {
+class Board extends React.Component {
   render() {
     const {routeName, lanes, notes, dispatch} = this.props;
     const laneActions = bindActionCreators(LaneActions, dispatch);
