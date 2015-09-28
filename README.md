@@ -5,9 +5,9 @@ This repository contains [redux](https://rackt.github.io/redux/) port of [Surviv
 ## Demo
 
 1. `cd kanban_app`
-1. `npm i`
-2. `npm start`
-3. Surf to `localhost:8080`
+2. `npm i`
+3. `npm start`
+4. Surf to `localhost:8080`
 
 ## License
 
