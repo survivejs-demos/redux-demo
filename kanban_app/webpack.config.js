@@ -1,5 +1,3 @@
-var fs = require('fs');
-var React = require('react');
 var path = require('path');
 var webpack = require('webpack');
 var HtmlwebpackPlugin = require('html-webpack-plugin');
@@ -7,23 +5,27 @@ var merge = require('webpack-merge');
 var Clean = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var App = require('./app/containers/App.jsx');
 var pkg = require('./package.json');
 
-const TARGET = process.env.npm_lifecycle_event;
-const ROOT_PATH = path.resolve(__dirname);
-const APP_PATH = path.resolve(ROOT_PATH, 'app');
-const APP_TITLE = 'Kanban app';
+var TARGET = process.env.npm_lifecycle_event;
+var ROOT_PATH = path.resolve(__dirname);
+var APP_PATH = path.resolve(ROOT_PATH, 'app');
+var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
 
-const common = {
+var common = {
   entry: APP_PATH,
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
   output: {
-    path: path.resolve(ROOT_PATH, 'build'),
+    path: BUILD_PATH,
     filename: 'bundle.js'
-  }
+  },
+  plugins: [
+    new HtmlwebpackPlugin({
+      title: 'Kanban app'
+    })
+  ]
 };
 
 if(TARGET === 'start' || !TARGET) {
@@ -49,10 +51,7 @@ if(TARGET === 'start' || !TARGET) {
       progress: true
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      new HtmlwebpackPlugin({
-        title: APP_TITLE
-      })
+      new webpack.HotModuleReplacementPlugin()
     ]
   });
 }
@@ -64,7 +63,7 @@ if(TARGET === 'build') {
       vendor: Object.keys(pkg.dependencies)
     },
     output: {
-      path: path.resolve(ROOT_PATH, 'build'),
+      path: BUILD_PATH,
       filename: '[name].[chunkhash].js'
     },
     devtool: 'source-map',
@@ -83,8 +82,8 @@ if(TARGET === 'build') {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('styles.[chunkhash].css'),
       new Clean(['build']),
+      new ExtractTextPlugin('styles.[chunkhash].css'),
       new webpack.optimize.CommonsChunkPlugin(
         'vendor',
         '[name].[chunkhash].js'
@@ -99,9 +98,6 @@ if(TARGET === 'build') {
         compress: {
           warnings: false
         }
-      }),
-      new HtmlwebpackPlugin({
-        title: APP_TITLE
       })
     ]
   });
