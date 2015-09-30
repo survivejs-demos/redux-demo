@@ -1,5 +1,5 @@
 import uuid from 'node-uuid';
-import * as types from '../constants/NoteActionTypes';
+import * as types from '../actions/notes';
 
 const initialState = [];
 

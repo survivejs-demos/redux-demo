@@ -1,38 +1,41 @@
-import * as types from '../constants/LaneActionTypes';
-
+export const CREATE_LANE = 'CREATE_LANE';
 export function createLane(lane) {
   return {
-    type: types.CREATE_LANE,
+    type: CREATE_LANE,
     lane
   };
 };
 
+export const UPDATE_LANE = 'UPDATE_LANE';
 export function updateLane(id, name) {
   return {
-    type: types.UPDATE_LANE,
+    type: UPDATE_LANE,
     id,
     name
   };
 };
 
+export const DELETE_LANE = 'DELETE_LANE';
 export function deleteLane(id) {
   return {
-    type: types.DELETE_LANE,
+    type: DELETE_LANE,
     id
   };
 };
 
+export const ATTACH_TO_LANE = 'ATTACH_TO_LANE';
 export function attachToLane(laneId, noteId) {
   return {
-    type: types.ATTACH_TO_LANE,
+    type: ATTACH_TO_LANE,
     laneId,
     noteId
   };
 };
 
+export const MOVE = 'MOVE';
 export function move(sourceId, targetId) {
   return {
-    type: types.MOVE,
+    type: MOVE,
     sourceId,
     targetId
   };

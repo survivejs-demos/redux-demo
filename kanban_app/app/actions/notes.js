@@ -1,23 +1,24 @@
-import * as types from '../constants/NoteActionTypes';
-
+export const CREATE_NOTE = 'CREATE_NOTE';
 export function createNote(note) {
   return {
-    type: types.CREATE_NOTE,
+    type: CREATE_NOTE,
     note
   };
 };
 
+export const UPDATE_NOTE = 'UPDATE_NOTE';
 export function updateNote(id, task) {
   return {
-    type: types.UPDATE_NOTE,
+    type: UPDATE_NOTE,
     id,
     task
   };
 };
 
+export const DELETE_NOTE = 'DELETE_NOTE';
 export function deleteNote(id) {
   return {
-    type: types.DELETE_NOTE,
+    type: DELETE_NOTE,
     id
   };
 };

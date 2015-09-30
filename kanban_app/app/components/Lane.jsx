@@ -1,8 +1,11 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Notes from './Notes.jsx';
 import Editable from './Editable.jsx';
 import {DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
+import * as laneActions from '../actions/lanes';
+import * as noteActions from '../actions/notes';
 
 const noteTarget = {
   hover(targetProps, monitor) {
@@ -10,7 +13,7 @@ const noteTarget = {
     const sourceId = sourceProps.id;
 
     if(!targetProps.notes.length) {
-      targetProps.laneActions.attachToLane(
+      targetProps.attachToLane(
         targetProps.id,
         sourceId
       );
@@ -21,7 +24,7 @@ const noteTarget = {
 @DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
-export default class Lane extends React.Component {
+class Lane extends React.Component {
   constructor(props) {
     super(props);
 
@@ -33,12 +36,13 @@ export default class Lane extends React.Component {
     this.editName = this.editName.bind(this, id);
   }
   render() {
-    const {connectDropTarget, id, name, allNotes, notes,
-      laneActions, noteActions, ...props} = this.props;
+    const {connectDropTarget, id, name, allNotes, notes, ...props} = this.props;
     const laneNotes = notes.map((id) => allNotes[
       allNotes.findIndex((note) => note.id === id)
     ]);
 
+    // XXX: {...props} isn't ideal here as we pass
+    // action creators through them now...
     return connectDropTarget(
       <div {...props}>
         <div className='lane-header'>
@@ -49,7 +53,6 @@ export default class Lane extends React.Component {
           </div>
         </div>
         <Notes
-          laneActions={laneActions}
           items={laneNotes}
           onEdit={this.editNote}
           onDelete={this.deleteNote} />
@@ -57,33 +60,30 @@ export default class Lane extends React.Component {
     );
   }
   addNote(laneId) {
-    const noteActions = this.props.noteActions;
-    const laneActions = this.props.laneActions;
-
-    const o = noteActions.createNote({
+    const o = this.props.createNote({
       task: 'New task'
     });
-    laneActions.attachToLane(laneId, o.note.id);
+    this.props.attachToLane(laneId, o.note.id);
   }
   editNote(id, task) {
-    const noteActions = this.props.noteActions;
-
-    noteActions.updateNote(id, task);
+    this.props.updateNote(id, task);
   }
   deleteNote(laneId, noteId) {
-    const noteActions = this.props.noteActions;
-    const laneActions = this.props.laneActions;
-
-    noteActions.deleteNote(noteId);
+    this.props.deleteNote(noteId);
   }
   editName(id, name) {
-    const laneActions = this.props.laneActions;
-
     if(name) {
-      laneActions.updateLane(id, name);
+      this.props.updateLane(id, name);
     }
     else {
-      laneActions.deleteLane(id);
+      this.props.deleteLane(id);
     }
   }
 }
+
+export default connect((state) => ({
+  allNotes: state.notes
+}), {
+  ...laneActions,
+  ...noteActions
+})(Lane);

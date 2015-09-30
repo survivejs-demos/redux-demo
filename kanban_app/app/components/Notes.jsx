@@ -1,8 +1,10 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import Editable from './Editable.jsx';
 import Note from './Note.jsx';
+import {move} from '../actions/lanes';
 
-export default class Notes extends React.Component {
+class Notes extends React.Component {
   constructor(props) {
     super(props);
 
@@ -14,10 +16,8 @@ export default class Notes extends React.Component {
     return <ul className='notes'>{notes.map(this.renderNote)}</ul>;
   }
   renderNote(note) {
-    const laneActions = this.props.laneActions;
-
     return (
-      <Note className='note' onMove={laneActions.move}
+      <Note className='note' onMove={this.props.move}
         id={note.id} key={`note${note.id}`}>
         <Editable
           value={note.task}
@@ -27,3 +27,8 @@ export default class Notes extends React.Component {
     );
   }
 }
+
+export default connect(() => ({}), {
+  move
+})(Notes);
+

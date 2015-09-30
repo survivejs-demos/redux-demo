@@ -1,6 +1,6 @@
 import uuid from 'node-uuid';
 import update from 'react/lib/update';
-import * as types from '../constants/LaneActionTypes';
+import * as types from '../actions/lanes';
 
 const initialState = [];
 
