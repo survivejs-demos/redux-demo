@@ -1,4 +1,3 @@
-import uuid from 'node-uuid';
 import * as types from '../actions/notes';
 
 const initialState = [];
@@ -6,11 +5,7 @@ const initialState = [];
 export default function notes(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_NOTE:
-      const note = action.note;
-
-      note.id = uuid.v4();
-
-      return [...state, note];
+      return [...state, action.note];
 
     case types.UPDATE_NOTE:
       return state.map((note) => {

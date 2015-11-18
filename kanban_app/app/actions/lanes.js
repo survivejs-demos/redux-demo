@@ -1,8 +1,14 @@
+import uuid from 'node-uuid';
+
 export const CREATE_LANE = 'CREATE_LANE';
 export function createLane(lane) {
   return {
     type: CREATE_LANE,
-    lane
+    lane: {
+      id: uuid.v4(),
+      notes: lane.notes || [],
+      ...lane
+    }
   };
 };
 

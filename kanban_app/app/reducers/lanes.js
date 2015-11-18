@@ -1,4 +1,3 @@
-import uuid from 'node-uuid';
 import update from 'react/lib/update';
 import * as types from '../actions/lanes';
 
@@ -7,12 +6,7 @@ const initialState = [];
 export default function lanes(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_LANE:
-      const lane = action.lane;
-
-      lane.id = uuid.v4();
-      lane.notes = lane.notes || [];
-
-      return [...state, lane];
+      return [...state, action.lane];
 
     case types.UPDATE_LANE:
       return state.map((lane) => {
