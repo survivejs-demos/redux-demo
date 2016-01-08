@@ -21,10 +21,16 @@ const noteTarget = {
   }
 };
 
+@connect((state) => ({
+  allNotes: state.notes
+}), {
+  ...laneActions,
+  ...noteActions
+})
 @DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
-class Lane extends React.Component {
+export default class Lane extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,10 +86,3 @@ class Lane extends React.Component {
     }
   }
 }
-
-export default connect((state) => ({
-  allNotes: state.notes
-}), {
-  ...laneActions,
-  ...noteActions
-})(Lane);

@@ -6,7 +6,12 @@ import Lanes from '../components/Lanes.jsx';
 import {createLane} from '../actions/lanes';
 
 @DragDropContext(HTML5Backend)
-class App extends React.Component {
+@connect((state) => ({
+  lanes: state.lanes
+}), {
+  createLane
+})
+export default class App extends React.Component {
   render() {
     const {lanes, createLane} = this.props;
 
@@ -21,9 +26,3 @@ class App extends React.Component {
     );
   }
 }
-
-export default connect((state) => ({
-  lanes: state.lanes
-}), {
-  createLane
-})(App);

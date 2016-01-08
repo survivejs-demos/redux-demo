@@ -4,7 +4,10 @@ import Editable from './Editable.jsx';
 import Note from './Note.jsx';
 import {move} from '../actions/lanes';
 
-class Notes extends React.Component {
+@connect(() => ({}), {
+  move
+})
+export default class Notes extends React.Component {
   constructor(props) {
     super(props);
 
@@ -27,8 +30,3 @@ class Notes extends React.Component {
     );
   }
 }
-
-export default connect(() => ({}), {
-  move
-})(Notes);
-
