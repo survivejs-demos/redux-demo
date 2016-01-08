@@ -7,7 +7,7 @@ import App from './containers/App.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
 
-const APP_STORAGE = 'app';
+const APP_STORAGE = 'redux_kanban';
 
 const store = configureStore(storage.get(APP_STORAGE) || {});
 
