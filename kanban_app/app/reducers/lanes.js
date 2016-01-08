@@ -1,4 +1,6 @@
-import update from 'react/lib/update';
+import update from 'react-addons-update';
+import assign from 'object-assign';
+
 import * as types from '../actions/lanes';
 
 const initialState = [];
@@ -10,7 +12,7 @@ export default function lanes(state = initialState, action) {
 
     case types.UPDATE_LANE:
       return state.map((lane) => {
-        return lane.id === action.id ? Object.assign({}, lane, {
+        return lane.id === action.id ? assign({}, lane, {
           name: action.name
         }) : lane;
       });
@@ -33,7 +35,7 @@ export default function lanes(state = initialState, action) {
 
         return lane;
       }).map((lane) => {
-        return lane.id === laneId ? Object.assign({}, lane, {
+        return lane.id === laneId ? assign({}, lane, {
           notes: [...lane.notes, noteId]
         }) : lane;
       });
@@ -54,7 +56,7 @@ export default function lanes(state = initialState, action) {
 
       if(sourceLane === targetLane) {
         return state.map((lane) => {
-          return lane.id === sourceLane.id ? Object.assign({}, lane, {
+          return lane.id === sourceLane.id ? assign({}, lane, {
             notes: update(sourceLane.notes, {
               $splice: [
                 [sourceNoteIndex, 1],
@@ -65,11 +67,23 @@ export default function lanes(state = initialState, action) {
         });
       }
       else {
-        // get rid of the source
-        sourceLane.notes.splice(sourceNoteIndex, 1);
+        return state.map((lane) => {
+          if(lane === sourceLane) {
+            // get rid of the source note
+            lane.notes = lane.notes.slice(0, sourceNoteIndex).concat(
+              lane.notes.slice(sourceNoteIndex + 1)
+            );
+          }
 
-        // and move it to target
-        targetLane.notes.splice(targetNoteIndex, 0, sourceId);
+          if(lane === targetLane) {
+            // and move it to target
+            lane.notes = lane.notes.slice(0, sourceNoteIndex).concat(
+              [sourceId]
+            ).concat(lane.notes.slice(sourceNoteIndex));
+          }
+
+          return lane;
+        });
       }
 
       return state;

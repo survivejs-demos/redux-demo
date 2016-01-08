@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {DragDropContext} from 'react-dnd';
-import HTML5Backend from 'react-dnd/modules/backends/HTML5';
+import HTML5Backend from 'react-dnd-html5-backend';
 import Lanes from '../components/Lanes.jsx';
 import {createLane} from '../actions/lanes';
 

@@ -1,3 +1,5 @@
+import assign from 'object-assign';
+
 import * as types from '../actions/notes';
 
 const initialState = [];
@@ -9,7 +11,7 @@ export default function notes(state = initialState, action) {
 
     case types.UPDATE_NOTE:
       return state.map((note) => {
-        return note.id === action.id ? Object.assign({}, note, {
+        return note.id === action.id ? assign({}, note, {
           task: action.task
         }) : note;
       });

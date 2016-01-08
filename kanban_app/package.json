@@ -4,6 +4,8 @@
   "description": "Webpack demo app",
   "main": "index.js",
   "scripts": {
+    "deploy": "gh-pages -d build",
+    "stats": "webpack --profile --json > stats.json",
     "build": "webpack",
     "start": "webpack-dev-server"
   },
@@ -14,26 +16,33 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^5.8.24",
-    "babel-loader": "^5.3.2",
-    "clean-webpack-plugin": "^0.1.3",
-    "css-loader": "^0.18.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "html-webpack-plugin": "^1.6.1",
-    "react-hot-loader": "^1.3.0",
-    "redux-devtools": "^2.1.2",
-    "style-loader": "^0.12.3",
-    "webpack": "^1.12.1",
-    "webpack-dev-server": "^1.10.1",
-    "webpack-merge": "^0.2.0"
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-react-hmre": "^1.0.1",
+    "babel-preset-survivejs-kanban": "^0.1.1",
+    "clean-webpack-plugin": "^0.1.5",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "gh-pages": "^0.8.0",
+    "html-webpack-plugin": "^1.7.0",
+    "html-webpack-template": "^2.5.1",
+    "redux-devtools": "^3.0.1",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.10",
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^0.7.1"
   },
   "dependencies": {
-    "array.prototype.findindex": "^1.0.0",
-    "es6-object-assign": "^1.0.1",
-    "node-uuid": "^1.4.3",
-    "react": "^0.13.3",
-    "react-dnd": "^1.1.5",
-    "react-redux": "^2.1.2",
-    "redux": "^3.0.0"
+    "node-uuid": "^1.4.7",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.6",
+    "react-addons-update": "^0.14.6",
+    "react-dnd": "^2.0.2",
+    "react-dnd-html5-backend": "^2.0.2",
+    "react-dom": "^0.14.6",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5"
   }
 }
