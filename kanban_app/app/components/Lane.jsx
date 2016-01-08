@@ -12,9 +12,9 @@ const noteTarget = {
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
 
-    if(!targetProps.notes.length) {
+    if(!targetProps.lane.notes.length) {
       targetProps.attachToLane(
-        targetProps.id,
+        targetProps.lane.id,
         sourceId
       );
     }
@@ -31,37 +31,28 @@ const noteTarget = {
   connectDropTarget: connect.dropTarget()
 }))
 export default class Lane extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const id = props.id;
-
-    this.addNote = this.addNote.bind(this, id);
-    this.editNote = this.editNote.bind(this);
-    this.deleteNote = this.deleteNote.bind(this, id);
-    this.editName = this.editName.bind(this, id);
-  }
   render() {
-    const {connectDropTarget, id, name, allNotes, notes, ...props} = this.props;
-    const laneNotes = notes.map((id) => allNotes[
+    const {connectDropTarget, lane, allNotes, ...props} = this.props;
+    const laneNotes = lane.notes.map((id) => allNotes[
       allNotes.findIndex((note) => note.id === id)
     ]);
+    const id = lane.id;
 
-    // XXX: {...props} isn't ideal here as we pass
-    // action creators through them now...
     return connectDropTarget(
       <div {...props}>
-        <div className='lane-header'>
-          <Editable className='lane-name' value={name}
-            onEdit={this.editName} />
-          <div className='lane-add-note'>
-            <button onClick={this.addNote}>+</button>
+        <div className="lane-header">
+          <Editable className="lane-name" editing={lane.editing}
+            value={lane.name} onEdit={this.editName.bind(this, id)}
+            onValueClick={this.activateLaneEdit.bind(this, id)} />
+          <div className="lane-add-note">
+            <button onClick={this.addNote.bind(this, id)}>+</button>
           </div>
         </div>
         <Notes
-          items={laneNotes}
-          onEdit={this.editNote}
-          onDelete={this.deleteNote} />
+          notes={laneNotes}
+          onValueClick={this.activateNoteEdit.bind(this)}
+          onEdit={this.editNote.bind(this)}
+          onDelete={this.deleteNote.bind(this, id)} />
       </div>
     );
   }
@@ -72,17 +63,23 @@ export default class Lane extends React.Component {
     this.props.attachToLane(laneId, o.note.id);
   }
   editNote(id, task) {
-    this.props.updateNote(id, task);
+    this.props.updateNote({id, task, editing: false});
   }
   deleteNote(laneId, noteId) {
     this.props.deleteNote(noteId);
   }
   editName(id, name) {
     if(name) {
-      this.props.updateLane(id, name);
+      this.props.updateLane({id, name, editing: false});
     }
     else {
       this.props.deleteLane(id);
     }
+  }
+  activateLaneEdit(id) {
+    this.props.updateLane({id, editing: true});
+  }
+  activateNoteEdit(id) {
+    this.props.updateNote({id, editing: true});
   }
 }

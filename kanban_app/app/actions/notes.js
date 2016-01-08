@@ -12,11 +12,10 @@ export function createNote(note) {
 };
 
 export const UPDATE_NOTE = 'UPDATE_NOTE';
-export function updateNote(id, task) {
+export function updateNote(updatedNote) {
   return {
     type: UPDATE_NOTE,
-    id,
-    task
+    ...updatedNote
   };
 };
 

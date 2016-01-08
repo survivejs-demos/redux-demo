@@ -13,11 +13,10 @@ export function createLane(lane) {
 };
 
 export const UPDATE_LANE = 'UPDATE_LANE';
-export function updateLane(id, name) {
+export function updateLane(updatedLane) {
   return {
     type: UPDATE_LANE,
-    id,
-    name
+    ...updatedLane
   };
 };
 
@@ -39,7 +38,7 @@ export function attachToLane(laneId, noteId) {
 };
 
 export const MOVE = 'MOVE';
-export function move(sourceId, targetId) {
+export function move({sourceId, targetId}) {
   return {
     type: MOVE,
     sourceId,

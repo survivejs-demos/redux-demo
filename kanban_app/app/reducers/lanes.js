@@ -12,9 +12,11 @@ export default function lanes(state = initialState, action) {
 
     case types.UPDATE_LANE:
       return state.map((lane) => {
-        return lane.id === action.id ? assign({}, lane, {
-          name: action.name
-        }) : lane;
+        if(lane.id === action.id) {
+          return assign({}, lane, action);
+        }
+
+        return lane;
       });
 
     case types.DELETE_LANE:
@@ -28,16 +30,19 @@ export default function lanes(state = initialState, action) {
         const index = lane.notes.indexOf(noteId);
 
         if(index >= 0) {
-          lane.notes = lane.notes.slice(0, index).concat(
-            lane.notes.slice(index + 1)
-          );
+          return assign({}, lane, {
+            notes: lane.notes.length > 1 ? lane.notes.slice(0, index).concat(
+              lane.notes.slice(index + 1)
+            ): []
+          });
+        }
+        if(lane.id === laneId) {
+          return assign({}, lane, {
+            notes: [...lane.notes, noteId]
+          });
         }
 
         return lane;
-      }).map((lane) => {
-        return lane.id === laneId ? assign({}, lane, {
-          notes: [...lane.notes, noteId]
-        }) : lane;
       });
 
     case types.MOVE:
@@ -70,16 +75,22 @@ export default function lanes(state = initialState, action) {
         return state.map((lane) => {
           if(lane === sourceLane) {
             // get rid of the source note
-            lane.notes = lane.notes.slice(0, sourceNoteIndex).concat(
-              lane.notes.slice(sourceNoteIndex + 1)
-            );
+            return assign({}, lane, {
+              notes: lane.notes.length > 1 ? lane.notes.slice(0, sourceNoteIndex).concat(
+                lane.notes.slice(sourceNoteIndex + 1)
+              ): []
+            });
           }
 
           if(lane === targetLane) {
             // and move it to target
-            lane.notes = lane.notes.slice(0, sourceNoteIndex).concat(
-              [sourceId]
-            ).concat(lane.notes.slice(sourceNoteIndex));
+            return assign({}, lane, {
+              notes: lane.notes.slice(0, sourceNoteIndex).concat(
+                [sourceId]
+              ).concat(
+                lane.notes.slice(sourceNoteIndex)
+              )
+            });
           }
 
           return lane;

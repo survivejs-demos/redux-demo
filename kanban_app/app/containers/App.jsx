@@ -17,7 +17,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <button className='add-lane'
+        <button className="add-lane"
           onClick={createLane.bind(null, {
             name: 'New lane'
           })}>+</button>
