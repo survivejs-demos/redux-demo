@@ -48,17 +48,12 @@ const common = {
 
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
-    entry: [
-      'webpack-dev-server/client?http://' + ENV.host + ':' + ENV.port,
-      // use webpack/hot/only-dev-server to prevent reload on syntax errors
-      'webpack/hot/dev-server',
-      PATHS.app
-    ],
+    entry: PATHS.app,
     devtool: 'eval-source-map',
     devServer: {
       historyApiFallback: true,
       hot: true,
-      // inline: true, // XXX: doesn't work with reducers?
+      inline: true,
       progress: true,
 
       // display only errors to reduce the amount of output
