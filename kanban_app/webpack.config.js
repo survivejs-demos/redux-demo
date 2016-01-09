@@ -12,6 +12,10 @@ const PATHS = {
   app: path.join(__dirname, 'app'),
   build: path.join(__dirname, 'build')
 };
+const ENV = {
+  host: process.env.HOST || 'localhost',
+  port: process.env.PORT || 8080
+};
 
 process.env.BABEL_ENV = TARGET;
 
@@ -44,11 +48,15 @@ const common = {
 
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
+    entry: [
+      'webpack-dev-server/client?http://' + ENV.host + ':' + ENV.port,
+      PATHS.app
+    ],
     devtool: 'eval-source-map',
     devServer: {
       historyApiFallback: true,
       hot: true,
-      inline: true,
+      // inline: true, // XXX: doesn't work with reducers?
       progress: true,
 
       // display only errors to reduce the amount of output
@@ -56,8 +64,8 @@ if(TARGET === 'start' || !TARGET) {
 
       // parse host and port from env so this is easy
       // to customize
-      host: process.env.HOST,
-      port: process.env.PORT
+      host: ENV.host,
+      port: ENV.port
     },
     module: {
       loaders: [
