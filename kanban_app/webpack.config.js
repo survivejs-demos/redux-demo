@@ -50,6 +50,8 @@ if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     entry: [
       'webpack-dev-server/client?http://' + ENV.host + ':' + ENV.port,
+      // use webpack/hot/only-dev-server to prevent reload on syntax errors
+      'webpack/hot/dev-server',
       PATHS.app
     ],
     devtool: 'eval-source-map',
