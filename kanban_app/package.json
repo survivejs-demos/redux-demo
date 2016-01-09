@@ -29,6 +29,7 @@
     "html-webpack-plugin": "^1.7.0",
     "html-webpack-template": "^2.5.1",
     "redux-devtools": "^3.0.1",
+    "redux-logger": "^2.3.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.10",
     "webpack-dev-server": "^1.14.0",
