@@ -35,7 +35,7 @@ export default class Lane extends React.Component {
     const {connectDropTarget, lane, allNotes, ...props} = this.props;
     const laneNotes = lane.notes.map((id) => allNotes[
       allNotes.findIndex((note) => note.id === id)
-    ]);
+    ]).filter((note) => note);
     const id = lane.id;
 
     return connectDropTarget(

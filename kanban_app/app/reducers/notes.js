@@ -19,6 +19,7 @@ export default function notes(state = initialState, action) {
       });
 
     case types.DELETE_NOTE:
+      console.log('state', state);
       return state.filter((note) => note.id !== action.id);
 
     default:
