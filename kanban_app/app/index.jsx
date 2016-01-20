@@ -2,8 +2,7 @@ import './main.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Provider} from 'react-redux';
-import App from './containers/App.jsx';
+import Root from './containers/Root.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
 
@@ -18,6 +17,6 @@ store.subscribe(() => {
 });
 
 ReactDOM.render(
-  <Provider store={store}><App /></Provider>,
+  <Root store={store} />,
   document.getElementById('app')
 );
