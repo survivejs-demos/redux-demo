@@ -69,7 +69,7 @@ export default class Lane extends React.Component {
     this.props.deleteNote(noteId);
   }
   editName(id, name) {
-    if(name) {
+    if(name.trim()) {
       this.props.updateLane({id, name, editing: false});
     }
     else {
