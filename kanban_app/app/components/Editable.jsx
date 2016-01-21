@@ -39,8 +39,10 @@ export default class Editable extends React.Component {
     }
   };
   finishEdit = (e) => {
-    if(this.props.onEdit && e.target.value.trim()) {
-      this.props.onEdit(e.target.value);
+    const value = e.target.value;
+
+    if(this.props.onEdit && value.trim()) {
+      this.props.onEdit(value);
     }
   };
 }
