@@ -40,13 +40,12 @@ export default class Lane extends React.Component {
 
     return connectDropTarget(
       <div {...props}>
-        <div className="lane-header">
+        <div className="lane-header" onClick={this.activateLaneEdit.bind(this, id)}>
           <div className="lane-add-note">
             <button onClick={this.addNote.bind(this, id)}>+</button>
           </div>
           <Editable className="lane-name" editing={lane.editing}
-            value={lane.name} onEdit={this.editName.bind(this, id)}
-            onValueClick={this.activateLaneEdit.bind(this, id)} />
+            value={lane.name} onEdit={this.editName.bind(this, id)} />
           <div className="lane-delete">
             <button onClick={this.deleteLane.bind(this, id)}>x</button>
           </div>
@@ -59,7 +58,9 @@ export default class Lane extends React.Component {
       </div>
     );
   }
-  addNote(laneId) {
+  addNote(laneId, e) {
+    e.stopPropagation();
+
     const o = this.props.createNote({
       task: 'New task'
     });
