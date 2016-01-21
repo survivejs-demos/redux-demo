@@ -36,25 +36,27 @@ export default class Lane extends React.Component {
     const laneNotes = lane.notes.map((id) => allNotes[
       allNotes.findIndex((note) => note.id === id)
     ]).filter((note) => note);
-    const id = lane.id;
+    const laneId = lane.id;
 
     return connectDropTarget(
       <div {...props}>
-        <div className="lane-header" onClick={this.activateLaneEdit.bind(this, id)}>
+        <div className="lane-header"
+          onClick={id => props.updateLane({id, editing: true})}>
           <div className="lane-add-note">
-            <button onClick={this.addNote.bind(this, id)}>+</button>
+            <button onClick={this.addNote.bind(this, laneId)}>+</button>
           </div>
           <Editable className="lane-name" editing={lane.editing}
-            value={lane.name} onEdit={this.editName.bind(this, id)} />
+            value={lane.name}
+            onEdit={name => props.updateLane({laneId, name, editing: false})} />
           <div className="lane-delete">
-            <button onClick={this.deleteLane.bind(this, id)}>x</button>
+            <button onClick={() => props.deleteLane(laneId)}>x</button>
           </div>
         </div>
         <Notes
           notes={laneNotes}
-          onValueClick={this.activateNoteEdit.bind(this)}
-          onEdit={this.editNote.bind(this)}
-          onDelete={this.deleteNote.bind(this, id)} />
+          onValueClick={id => props.updateNote({id, editing: true})}
+          onEdit={(id, task) => props.updateNote({id, task, editing: false})}
+          onDelete={noteId => props.deleteNote(noteId)} />
       </div>
     );
   }
@@ -65,23 +67,5 @@ export default class Lane extends React.Component {
       task: 'New task'
     });
     this.props.attachToLane(laneId, o.note.id);
-  }
-  editNote(id, task) {
-    this.props.updateNote({id, task, editing: false});
-  }
-  deleteNote(laneId, noteId) {
-    this.props.deleteNote(noteId);
-  }
-  editName(id, name) {
-    this.props.updateLane({id, name, editing: false});
-  }
-  deleteLane(laneId) {
-    this.props.deleteLane(laneId);
-  }
-  activateLaneEdit(id) {
-    this.props.updateLane({id, editing: true});
-  }
-  activateNoteEdit(id) {
-    this.props.updateNote({id, editing: true});
   }
 }
