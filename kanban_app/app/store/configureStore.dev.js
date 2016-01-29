@@ -1,18 +1,9 @@
-import {createStore, applyMiddleware, compose} from 'redux';
-import createLogger from 'redux-logger';
+import {createStore, compose} from 'redux';
 import {persistState} from 'redux-devtools';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 
-const logger = createLogger(
-  {
-    collapsed: true,
-    predicate: (getState, action) => process.env.NODE_ENV !== 'production',
-  }
-);
-
 const createStoreWithMiddleware = compose(
-  applyMiddleware(logger),
   DevTools.instrument(),
   persistState(getDebugSessionKey())
 )(createStore);

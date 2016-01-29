@@ -13,7 +13,7 @@ export default class Notes extends React.Component {
 
     return (<ul className="notes">{notes.map((note) =>
       <Note className="note" id={note.id} key={note.id}
-        onMove={move}>
+        editing={note.editing} onMove={move}>
         <Editable
           editing={note.editing}
           value={note.task}
