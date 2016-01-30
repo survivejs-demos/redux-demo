@@ -37,6 +37,15 @@ export function attachToLane(laneId, noteId) {
   };
 };
 
+export const DETACH_FROM_LANE = 'DETACH_FROM_LANE';
+export function detachFromLane(laneId, noteId) {
+  return {
+    type: DETACH_FROM_LANE,
+    laneId,
+    noteId
+  };
+};
+
 export const MOVE = 'MOVE';
 export function move({sourceId, targetId}) {
   return {

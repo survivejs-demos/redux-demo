@@ -56,7 +56,7 @@ export default class Lane extends React.Component {
           notes={laneNotes}
           onValueClick={id => props.updateNote({id, editing: true})}
           onEdit={(id, task) => props.updateNote({id, task, editing: false})}
-          onDelete={noteId => props.deleteNote(noteId)} />
+          onDelete={id => this.deleteNote(laneId, id)} />
       </div>
     );
   }
@@ -67,5 +67,9 @@ export default class Lane extends React.Component {
       task: 'New task'
     });
     this.props.attachToLane(laneId, o.note.id);
+  }
+  deleteNote(laneId, noteId) {
+    this.props.detachFromLane(laneId, noteId);
+    this.props.deleteNote(noteId);
   }
 }
