@@ -43,6 +43,17 @@ export default function lanes(state = initialState, action) {
         return lane;
       });
 
+    case types.DETACH_FROM_LANE:
+      return state.map((lane) => {
+        if(lane.id === action.laneId) {
+          return Object.assign({}, lane, {
+            notes: lane.notes.filter((id) => id !== action.noteId)
+          });
+        }
+
+        return lane;
+      });
+
     case types.MOVE:
       const sourceId = action.sourceId;
       const targetId = action.targetId;
