@@ -2,6 +2,8 @@
 
 This repository contains [redux](https://rackt.github.io/redux/) port of [SurviveJS - Webpack and React](http://survivejs.com/) Kanban example.
 
+> See [Dan Abramov's interview about redux](http://survivejs.com/blog/redux-interview/)!
+
 ## Demo
 
 1. `cd kanban_app`
