@@ -94,10 +94,10 @@ export default function lanes(state = initialState, action) {
           if(lane === targetLane) {
             // and move it to target
             return Object.assign({}, lane, {
-              notes: lane.notes.slice(0, sourceNoteIndex).concat(
+              notes: lane.notes.slice(0, targetNoteIndex).concat(
                 [sourceId]
               ).concat(
-                lane.notes.slice(sourceNoteIndex)
+                lane.notes.slice(targetNoteIndex)
               )
             });
           }
