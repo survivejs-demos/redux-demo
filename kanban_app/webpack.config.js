@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlwebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const Clean = require('clean-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const pkg = require('./package.json');
@@ -39,9 +39,10 @@ const common = {
   },
   plugins: [
     new HtmlwebpackPlugin({
-      template: 'node_modules/html-webpack-template/index.html',
+      template: 'node_modules/html-webpack-template/index.ejs',
       title: 'Kanban app',
-      appMountId: 'app'
+      appMountId: 'app',
+      inject: false
     })
   ]
 };
@@ -107,7 +108,7 @@ if(TARGET === 'build' || TARGET === 'stats') {
       ]
     },
     plugins: [
-      new Clean([PATHS.build]),
+      new CleanPlugin([PATHS.build]),
       // Output extracted CSS to a file
       new ExtractTextPlugin('styles.[chunkhash].css'),
       // Extract vendor and manifest files
