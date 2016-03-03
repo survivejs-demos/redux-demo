@@ -37,6 +37,7 @@ describe('NoteReducer', () => {
     });
 
     assert.equal(state.count(), 1);
+    assert.equal(state.get(0).id, note.id);
     assert.equal(state.get(0).task, updatedTask);
   });
 

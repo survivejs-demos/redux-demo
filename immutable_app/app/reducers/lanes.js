@@ -13,7 +13,7 @@ export default function lanes(state = initialState, action) {
       // XXX: this can crash if findIndex fails
       return state.update(
         state.findIndex(lane => lane.id === action.id),
-        lane => action
+        lane => Object.assign({}, lane, action)
       );
 
     case types.DELETE_LANE:

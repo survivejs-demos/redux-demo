@@ -39,6 +39,7 @@ describe('LaneReducer', () => {
     });
 
     assert.equal(state.count(), 1);
+    assert.equal(state.get(0).id, lane.id);
     assert.equal(state.get(0).name, updatedName);
   });
 

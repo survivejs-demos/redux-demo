@@ -12,7 +12,7 @@ export default function notes(state = initialState, action) {
       // XXX: this can crash if findIndex fails
       return state.update(
         state.findIndex(note => note.id === action.id),
-        note => action
+        note => Object.assign({}, note, action)
       );
 
     case types.DELETE_NOTE:
