@@ -58,4 +58,24 @@ describe('LaneReducer', () => {
 
     assert.equal(state.count(), 0);
   });
+
+  it('should attach notes to lanes', () => {
+
+  });
+
+  it('should allow only one unique note per lanes when attaching', () => {
+
+  });
+
+  it('should detach notes to lanes', () => {
+
+  });
+
+  it('should allow moving notes within a lane', () => {
+
+  });
+
+  it('should allow moving notes from a lane to lane', () => {
+
+  });
 });
