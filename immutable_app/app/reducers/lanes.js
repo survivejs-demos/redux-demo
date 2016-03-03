@@ -18,18 +18,34 @@ export default function lanes(state = initialState, action) {
 
     case types.DELETE_LANE:
       // XXX: this can crash if findIndex fails
-      return state.delete(state.findIndex(o => o.id === action.id));
+      return state.delete(state.findIndex(lane => lane.id === action.id));
 
     case types.ATTACH_TO_LANE:
       const laneId = action.laneId;
       const noteId = action.noteId;
 
-      // XXX: this can crash if findIndex fails
-      return state.update(
-        state.findIndex(lane => lane.id === laneId),
-        lane => Object.assign({}, lane, {
-          notes: [...lane.notes, noteId]
-        })
+      return state.map(
+        lane => {
+          const noteIndex = lane.notes.indexOf(noteId);
+
+          // Delete notes if found
+          if(noteIndex >= 0) {
+            return Object.assign({}, lane, {
+              notes: lane.notes.slice(0, noteIndex).concat(
+                lane.notes.slice(noteIndex + 1)
+              )
+            });
+          }
+
+          // Attach note to the lane
+          if(lane.id === laneId) {
+            return Object.assign({}, lane, {
+              notes: [...lane.notes, noteId]
+            });
+          }
+
+          return lane;
+        }
       );
 
     case types.DETACH_FROM_LANE:
