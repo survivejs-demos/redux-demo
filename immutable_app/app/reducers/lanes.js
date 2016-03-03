@@ -63,13 +63,12 @@ export default function lanes(state = initialState, action) {
       const sourceId = action.sourceId;
       const targetId = action.targetId;
 
-      const lanes = state;
-      const sourceLane = lanes.filter((lane) => {
+      const sourceLane = state.find((lane) => {
         return lane.notes.indexOf(sourceId) >= 0;
-      })[0];
-      const targetLane = lanes.filter((lane) => {
+      });
+      const targetLane = state.find((lane) => {
         return lane.notes.indexOf(targetId) >= 0;
-      })[0];
+      });
       const sourceNoteIndex = sourceLane.notes.indexOf(sourceId);
       const targetNoteIndex = targetLane.notes.indexOf(targetId);
 
