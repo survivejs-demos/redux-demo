@@ -83,7 +83,39 @@ describe('LaneReducer', () => {
   });
 
   it('should allow only one unique note per lanes when attaching', () => {
+    const lane1 = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+    const lane2 = {
+      id: 'foobar2',
+      name: 'demo lane 2',
+      notes: []
+    };
+    const noteId = '123456';
 
+    let lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane1
+    });
+    lanes = reducer(lanes, {
+      type: types.CREATE_LANE,
+      lane: lane2
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane1.id,
+      noteId: noteId
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane2.id,
+      noteId: noteId
+    });
+
+    assert.equal(lanes.get(0).notes.length, 0);
+    assert.equal(lanes.get(1).notes[0], noteId);
   });
 
   it('should detach notes to lanes', () => {
