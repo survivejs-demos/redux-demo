@@ -9,13 +9,15 @@ export default function notes(state = initialState, action) {
       return state.push(action.note);
 
     case types.UPDATE_NOTE:
+      // XXX: this can crash if findIndex fails
       return state.update(
-        state.findIndex(o => o.id === action.id),
-        o => action
+        state.findIndex(note => note.id === action.id),
+        note => action
       );
 
     case types.DELETE_NOTE:
-      return state.delete(state.findIndex(o => o.id === action.id));
+      // XXX: this can crash if findIndex fails
+      return state.delete(state.findIndex(note => note.id === action.id));
 
     default:
       return state;
