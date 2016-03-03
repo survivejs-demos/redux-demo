@@ -3,8 +3,8 @@ import actions from 'app/actions/lanes';
 import reducer from 'app/reducers/lanes';
 
 describe('LaneReducer', () => {
-  beforeEach(() => {
-
+  it('should return the initial state', () => {
+    assert.equal(reducer(undefined, {}).count(), 0);
   });
 
   it('creates lanes', () => {

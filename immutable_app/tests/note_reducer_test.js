@@ -3,8 +3,8 @@ import actions from 'app/actions/notes';
 import reducer from 'app/reducers/notes';
 
 describe('NoteReducer', () => {
-  beforeEach(() => {
-
+  it('should return the initial state', () => {
+    assert.equal(reducer(undefined, {}).count(), 0);
   });
 
   it('creates notes', () => {
