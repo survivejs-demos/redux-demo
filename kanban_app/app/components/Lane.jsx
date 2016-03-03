@@ -49,7 +49,7 @@ export default class Lane extends React.Component {
             value={lane.name}
             onEdit={name => props.updateLane({id: laneId, name, editing: false})} />
           <div className="lane-delete">
-            <button onClick={() => props.deleteLane(laneId)}>x</button>
+            <button onClick={this.deleteLane.bind(this, laneId)}>x</button>
           </div>
         </div>
         <Notes
@@ -59,6 +59,11 @@ export default class Lane extends React.Component {
           onDelete={id => this.deleteNote(laneId, id)} />
       </div>
     );
+  }
+  deleteLane(laneId, e) {
+    e.stopPropagation();
+
+    this.props.deleteLane(laneId);
   }
   addNote(laneId, e) {
     e.stopPropagation();
