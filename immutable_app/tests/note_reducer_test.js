@@ -7,7 +7,7 @@ describe('NoteReducer', () => {
     assert.equal(reducer(undefined, {}).count(), 0);
   });
 
-  it('creates notes', () => {
+  it('should create notes', () => {
     const note = {
       id: 'foobar',
       task: 'test'
@@ -19,7 +19,7 @@ describe('NoteReducer', () => {
     }).toJS(), [note]);
   });
 
-  it('updates notes', () => {
+  it('should update notes', () => {
     const note = {
       id: 'foobar',
       task: 'test'
@@ -39,7 +39,7 @@ describe('NoteReducer', () => {
     assert.equal(state.get(0).task, updatedTask);
   });
 
-  it('deletes notes', () => {
+  it('should delete notes', () => {
     const note = {
       id: 'foobar',
       task: 'test'

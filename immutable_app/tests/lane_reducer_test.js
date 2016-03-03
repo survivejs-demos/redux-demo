@@ -7,7 +7,7 @@ describe('LaneReducer', () => {
     assert.equal(reducer(undefined, {}).count(), 0);
   });
 
-  it('creates lanes', () => {
+  it('should create lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
@@ -20,7 +20,7 @@ describe('LaneReducer', () => {
     }).toJS(), [lane]);
   });
 
-  it('updates lanes', () => {
+  it('should update lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
@@ -41,7 +41,7 @@ describe('LaneReducer', () => {
     assert.equal(state.get(0).name, updatedName);
   });
 
-  it('deletes lanes', () => {
+  it('should delete lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
@@ -58,8 +58,4 @@ describe('LaneReducer', () => {
 
     assert.equal(state.count(), 0);
   });
-
-  // TODO: test attach
-  // TODO: test detach
-  // TODO: test move
 });
