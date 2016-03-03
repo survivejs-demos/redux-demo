@@ -27,6 +27,7 @@ describe('LaneReducer', () => {
       notes: []
     };
     const updatedName = 'foofoo';
+
     const lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
@@ -47,6 +48,7 @@ describe('LaneReducer', () => {
       name: 'demo lane',
       notes: []
     };
+
     const lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane

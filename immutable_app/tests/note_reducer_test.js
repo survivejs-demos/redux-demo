@@ -25,6 +25,7 @@ describe('NoteReducer', () => {
       task: 'test'
     };
     const updatedTask = 'foofoo';
+
     const notes = reducer(undefined, {
       type: types.CREATE_NOTE,
       note: note
@@ -44,6 +45,7 @@ describe('NoteReducer', () => {
       id: 'foobar',
       task: 'test'
     };
+
     const notes = reducer(undefined, {
       type: types.CREATE_NOTE,
       note: note
