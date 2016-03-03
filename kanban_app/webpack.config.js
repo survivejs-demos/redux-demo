@@ -10,7 +10,8 @@ const pkg = require('./package.json');
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
   app: path.join(__dirname, 'app'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build'),
+  style: path.join(__dirname, 'app/main.css')
 };
 const ENV = {
   host: process.env.HOST || 'localhost',
@@ -20,7 +21,9 @@ const ENV = {
 process.env.BABEL_ENV = TARGET;
 
 const common = {
-  entry: PATHS.app,
+  entry: {
+    app: PATHS.app
+  },
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
@@ -49,7 +52,9 @@ const common = {
 
 if(TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
-    entry: PATHS.app,
+    entry: {
+      style: PATHS.style
+    },
     devtool: 'eval-source-map',
     devServer: {
       historyApiFallback: true,
@@ -84,13 +89,13 @@ if(TARGET === 'start' || !TARGET) {
 if(TARGET === 'build' || TARGET === 'stats') {
   module.exports = merge(common, {
     entry: {
-      app: PATHS.app,
       vendor: Object.keys(pkg.dependencies).filter(function(v) {
         // Exclude alt-utils as it won't work with this setup
         // due to the way the package has been designed
         // (no package.json main).
         return v !== 'alt-utils';
-      })
+      }),
+      style: PATHS.style
     },
     output: {
       path: PATHS.build,
