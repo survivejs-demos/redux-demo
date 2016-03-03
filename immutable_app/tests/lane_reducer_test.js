@@ -28,19 +28,19 @@ describe('LaneReducer', () => {
     };
     const updatedName = 'foofoo';
 
-    const lanes = reducer(undefined, {
+    let lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
     });
-    const state = reducer(lanes, {
+    lanes = reducer(lanes, {
       type: types.UPDATE_LANE,
       id: lane.id,
       name: updatedName
     });
 
-    assert.equal(state.count(), 1);
-    assert.equal(state.get(0).id, lane.id);
-    assert.equal(state.get(0).name, updatedName);
+    assert.equal(lanes.count(), 1);
+    assert.equal(lanes.get(0).id, lane.id);
+    assert.equal(lanes.get(0).name, updatedName);
   });
 
   it('should delete lanes', () => {
@@ -50,16 +50,16 @@ describe('LaneReducer', () => {
       notes: []
     };
 
-    const lanes = reducer(undefined, {
+    let lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
     });
-    const state = reducer(lanes, {
+    lanes = reducer(lanes, {
       type: types.DELETE_LANE,
       id: lane.id
     });
 
-    assert.equal(state.count(), 0);
+    assert.equal(lanes.count(), 0);
   });
 
   it('should attach notes to lanes', () => {
@@ -68,19 +68,19 @@ describe('LaneReducer', () => {
       name: 'demo lane',
       notes: []
     };
+    const noteId = '123456';
 
-    const lanes = reducer(undefined, {
+    let lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
     });
-    const noteId = '123456';
-    const state = reducer(lanes, {
+    lanes = reducer(lanes, {
       type: types.ATTACH_TO_LANE,
       laneId: lane.id,
       noteId: noteId
     });
 
-    assert.equal(state.get(0).notes[0], noteId);
+    assert.equal(lanes.get(0).notes[0], noteId);
   });
 
   it('should allow only one unique note per lanes when attaching', () => {
@@ -125,19 +125,19 @@ describe('LaneReducer', () => {
       name: 'demo lane',
       notes: []
     };
+    const noteId = '123456';
 
-    const lanes = reducer(undefined, {
+    let lanes = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
     });
-    const noteId = '123456';
-    const state = reducer(lanes, {
+    lanes = reducer(lanes, {
       type: types.DETACH_FROM_LANE,
       laneId: lane.id,
       noteId: noteId
     });
 
-    assert.equal(state.get(0).notes.length, 0);
+    assert.equal(lanes.get(0).notes.length, 0);
   });
 
   it('should allow moving notes within a lane', () => {
