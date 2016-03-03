@@ -41,6 +41,27 @@ describe('NoteReducer', () => {
     assert.equal(state.get(0).task, updatedTask);
   });
 
+  it('should not crash while updating a non-existent note', () => {
+    const note = {
+      id: 'foobar',
+      task: 'test'
+    };
+
+    const notes = reducer(undefined, {
+      type: types.CREATE_NOTE,
+      note: note
+    });
+    const state = reducer(notes, {
+      type: types.UPDATE_NOTE,
+      id: note.id + note.id,
+      task: 'foo'
+    });
+
+    assert.equal(state.count(), 1);
+    assert.equal(state.get(0).id, note.id);
+    assert.equal(state.get(0).task, note.task);
+  });
+
   it('should delete notes', () => {
     const note = {
       id: 'foobar',
@@ -57,5 +78,25 @@ describe('NoteReducer', () => {
     });
 
     assert.equal(state.count(), 0);
+  });
+
+  it('should not crash while deleting a non-existent note', () => {
+    const note = {
+      id: 'foobar',
+      task: 'test'
+    };
+
+    const notes = reducer(undefined, {
+      type: types.CREATE_NOTE,
+      note: note
+    });
+    const state = reducer(notes, {
+      type: types.DELETE_NOTE,
+      id: note.id + note.id
+    });
+
+    assert.equal(state.count(), 1);
+    assert.equal(state.get(0).id, note.id);
+    assert.equal(state.get(0).task, note.task);
   });
 });
