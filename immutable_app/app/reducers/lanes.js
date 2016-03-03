@@ -5,20 +5,32 @@ import * as types from '../actions/lanes';
 const initialState = List();
 
 export default function lanes(state = initialState, action) {
+  let laneIndex;
+
   switch (action.type) {
     case types.CREATE_LANE:
       return state.push(action.lane);
 
     case types.UPDATE_LANE:
-      // XXX: this can crash if findIndex fails
+      laneIndex = state.findIndex(lane => lane.id === action.id);
+
+      if(laneIndex < 0) {
+        return state;
+      }
+
       return state.update(
-        state.findIndex(lane => lane.id === action.id),
+        laneIndex,
         lane => Object.assign({}, lane, action)
       );
 
     case types.DELETE_LANE:
-      // XXX: this can crash if findIndex fails
-      return state.delete(state.findIndex(lane => lane.id === action.id));
+      laneIndex = state.findIndex(lane => lane.id === action.id);
+
+      if(laneIndex < 0) {
+        return state;
+      }
+
+      return state.delete(laneIndex);
 
     case types.ATTACH_TO_LANE:
       const laneId = action.laneId;

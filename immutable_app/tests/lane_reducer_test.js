@@ -43,6 +43,28 @@ describe('LaneReducer', () => {
     assert.equal(lanes.get(0).name, updatedName);
   });
 
+  it('should not crash while updating a non-existent lane', () => {
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+
+    let lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    lanes = reducer(lanes, {
+      type: types.UPDATE_LANE,
+      id: lane.id + lane.id,
+      name: 'foo'
+    });
+
+    assert.equal(lanes.count(), 1);
+    assert.equal(lanes.get(0).id, lane.id);
+    assert.equal(lanes.get(0).name, lane.name);
+  });
+
   it('should delete lanes', () => {
     const lane = {
       id: 'foobar',
@@ -60,6 +82,29 @@ describe('LaneReducer', () => {
     });
 
     assert.equal(lanes.count(), 0);
+  });
+
+
+  it('should not crash while deleting a non-existent lane', () => {
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+
+    let lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    lanes = reducer(lanes, {
+      type: types.DELETE_LANE,
+      id: lane.id + lane.id,
+      name: 'foo'
+    });
+
+    assert.equal(lanes.count(), 1);
+    assert.equal(lanes.get(0).id, lane.id);
+    assert.equal(lanes.get(0).name, lane.name);
   });
 
   it('should attach notes to lanes', () => {
