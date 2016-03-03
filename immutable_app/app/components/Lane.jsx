@@ -33,9 +33,9 @@ const noteTarget = {
 export default class Lane extends React.Component {
   render() {
     const {connectDropTarget, lane, allNotes, ...props} = this.props;
-    const laneNotes = lane.notes.map((id) => allNotes[
-      allNotes.findIndex((note) => note.id === id)
-    ]).filter((note) => note);
+    const laneNotes = lane.notes.map(
+      id => allNotes.find(note => note.id === id)
+    );
     const laneId = lane.id;
 
     return connectDropTarget(
