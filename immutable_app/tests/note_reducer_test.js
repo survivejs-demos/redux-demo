@@ -20,21 +20,23 @@ describe('NoteReducer', () => {
   });
 
   it('updates notes', () => {
-/*
-    const task = 'test';
-    const updatedTask = 'test 2';
+    const note = {
+      id: 'foobar',
+      task: 'test'
+    };
+    const updatedTask = 'foofoo';
+    const notes = reducer(undefined, {
+      type: types.CREATE_NOTE,
+      note: note
+    });
+    const state = reducer(notes, {
+      type: types.UPDATE_NOTE,
+      id: note.id,
+      task: updatedTask
+    });
 
-    NoteActions.create({task});
-
-    const note = NoteStore.getState().notes[0];
-
-    NoteActions.update({...note, task: updatedTask});
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 1);
-    assert.equal(state.notes[0].task, updatedTask);
-*/
+    assert.equal(state.count(), 1);
+    assert.equal(state.get(0).task, updatedTask);
   });
 
   it('deletes notes', () => {

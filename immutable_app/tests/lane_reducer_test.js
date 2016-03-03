@@ -10,6 +10,7 @@ describe('LaneReducer', () => {
   it('creates lanes', () => {
     const lane = {
       id: 'foobar',
+      name: 'demo lane',
       notes: []
     };
 
@@ -20,21 +21,24 @@ describe('LaneReducer', () => {
   });
 
   it('updates lanes', () => {
-/*
-    const task = 'test';
-    const updatedTask = 'test 2';
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+    const updatedName = 'foofoo';
+    const lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    const state = reducer(lanes, {
+      type: types.UPDATE_LANE,
+      id: lane.id,
+      name: updatedName
+    });
 
-    NoteActions.create({task});
-
-    const note = NoteStore.getState().notes[0];
-
-    NoteActions.update({...note, task: updatedTask});
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 1);
-    assert.equal(state.notes[0].task, updatedTask);
-*/
+    assert.equal(state.count(), 1);
+    assert.equal(state.get(0).name, updatedName);
   });
 
   it('deletes lanes', () => {

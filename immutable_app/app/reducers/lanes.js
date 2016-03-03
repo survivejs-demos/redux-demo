@@ -10,7 +10,10 @@ export default function lanes(state = initialState, action) {
       return state.push(action.lane);
 
     case types.UPDATE_LANE:
-      return state.update(state.find({id: action.id}), action);
+      return state.update(
+        state.findIndex(o => o.id == action.id),
+        o => action
+      );
 
     case types.DELETE_LANE:
       return state.delete(state.find({id: action.id}));
