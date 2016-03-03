@@ -7,7 +7,9 @@
     "deploy": "gh-pages -d build",
     "stats": "webpack --profile --json > stats.json",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "karma start",
+    "tdd": "karma start --auto-watch --no-single-run"
   },
   "keywords": [
     "webpack",
@@ -28,6 +30,17 @@
     "gh-pages": "^0.10.0",
     "html-webpack-plugin": "^2.9.0",
     "html-webpack-template": "^4.0.0",
+    "isparta-instrumenter-loader": "^1.0.0",
+    "karma": "^0.13.21",
+    "karma-coverage": "^0.5.3",
+    "karma-mocha": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.24",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5",
+    "phantomjs-polyfill": "0.0.2",
+    "phantomjs-prebuilt": "^2.1.4",
     "redux-devtools": "^3.1.1",
     "redux-devtools-dock-monitor": "^1.1.0",
     "redux-devtools-log-monitor": "^1.0.5",
