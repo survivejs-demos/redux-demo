@@ -10,12 +10,12 @@ export default function notes(state = initialState, action) {
 
     case types.UPDATE_NOTE:
       return state.update(
-        state.findIndex(o => o.id == action.id),
+        state.findIndex(o => o.id === action.id),
         o => action
       );
 
     case types.DELETE_NOTE:
-      return state.delete(state.find({id: action.id}));
+      return state.delete(state.findIndex(o => o.id === action.id));
 
     default:
       return state;

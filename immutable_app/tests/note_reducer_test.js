@@ -40,16 +40,19 @@ describe('NoteReducer', () => {
   });
 
   it('deletes notes', () => {
-/*
-    NoteActions.create({task: 'test'});
+    const note = {
+      id: 'foobar',
+      task: 'test'
+    };
+    const notes = reducer(undefined, {
+      type: types.CREATE_NOTE,
+      note: note
+    });
+    const state = reducer(notes, {
+      type: types.DELETE_NOTE,
+      id: note.id
+    });
 
-    const note = NoteStore.getState().notes[0];
-
-    NoteActions.delete(note.id);
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 0);
-*/
+    assert.equal(state.count(), 0);
   });
 });

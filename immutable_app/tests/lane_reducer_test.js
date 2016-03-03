@@ -42,16 +42,20 @@ describe('LaneReducer', () => {
   });
 
   it('deletes lanes', () => {
-/*
-    NoteActions.create({task: 'test'});
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+    const lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    const state = reducer(lanes, {
+      type: types.DELETE_LANE,
+      id: lane.id
+    });
 
-    const note = NoteStore.getState().notes[0];
-
-    NoteActions.delete(note.id);
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 0);
-*/
+    assert.equal(state.count(), 0);
   });
 });

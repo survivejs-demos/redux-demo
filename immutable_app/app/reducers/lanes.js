@@ -11,12 +11,12 @@ export default function lanes(state = initialState, action) {
 
     case types.UPDATE_LANE:
       return state.update(
-        state.findIndex(o => o.id == action.id),
+        state.findIndex(o => o.id === action.id),
         o => action
       );
 
     case types.DELETE_LANE:
-      return state.delete(state.find({id: action.id}));
+      return state.delete(state.findIndex(o => o.id === action.id));
 
     case types.ATTACH_TO_LANE:
       const laneId = action.laneId;
