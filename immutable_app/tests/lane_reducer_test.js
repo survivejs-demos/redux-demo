@@ -1,5 +1,5 @@
 import assert from 'assert';
-import actions from 'app/actions/lanes';
+import * as types from 'app/actions/lanes';
 import reducer from 'app/reducers/lanes';
 
 describe('LaneReducer', () => {
@@ -8,16 +8,15 @@ describe('LaneReducer', () => {
   });
 
   it('creates lanes', () => {
-/*
-    const task = 'test';
+    const lane = {
+      id: 'foobar',
+      notes: []
+    };
 
-    NoteActions.create({task});
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 1);
-    assert.equal(state.notes[0].task, task);
-*/
+    assert.deepEqual(reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    }).toJS(), [lane]);
   });
 
   it('updates lanes', () => {

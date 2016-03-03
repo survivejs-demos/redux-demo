@@ -1,5 +1,5 @@
 import assert from 'assert';
-import actions from 'app/actions/notes';
+import * as types from 'app/actions/notes';
 import reducer from 'app/reducers/notes';
 
 describe('NoteReducer', () => {
@@ -8,16 +8,15 @@ describe('NoteReducer', () => {
   });
 
   it('creates notes', () => {
-/*
-    const task = 'test';
+    const note = {
+      id: 'foobar',
+      task: 'test'
+    };
 
-    NoteActions.create({task});
-
-    const state = NoteStore.getState();
-
-    assert.equal(state.notes.length, 1);
-    assert.equal(state.notes[0].task, task);
-*/
+    assert.deepEqual(reducer(undefined, {
+      type: types.CREATE_NOTE,
+      note: note
+    }).toJS(), [note]);
   });
 
   it('updates notes', () => {
