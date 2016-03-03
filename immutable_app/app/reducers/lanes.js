@@ -49,7 +49,7 @@ export default function lanes(state = initialState, action) {
       );
 
     case types.DETACH_FROM_LANE:
-      return state.map((lane) => {
+      return state.map(lane => {
         if(lane.id === action.laneId) {
           return Object.assign({}, lane, {
             notes: lane.notes.filter((id) => id !== action.noteId)

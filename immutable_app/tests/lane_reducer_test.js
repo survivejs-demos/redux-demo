@@ -119,7 +119,24 @@ describe('LaneReducer', () => {
   });
 
   it('should detach notes to lanes', () => {
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
 
+    const lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    const noteId = '123456';
+    const state = reducer(lanes, {
+      type: types.DETACH_FROM_LANE,
+      laneId: lane.id,
+      noteId: noteId
+    });
+
+    assert.equal(state.get(0).notes.length, 0);
   });
 
   it('should allow moving notes within a lane', () => {
