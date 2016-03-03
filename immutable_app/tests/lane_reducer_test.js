@@ -175,6 +175,46 @@ describe('LaneReducer', () => {
   });
 
   it('should allow moving notes from a lane to lane', () => {
+    const lane1 = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: []
+    };
+    const lane2 = {
+      id: 'foobar2',
+      name: 'demo lane 2',
+      notes: []
+    };
+    const sourceNoteId = '123456';
+    const targetNoteId = '654321';
 
+    let lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane1
+    });
+    lanes = reducer(lanes, {
+      type: types.CREATE_LANE,
+      lane: lane2
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane1.id,
+      noteId: sourceNoteId
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane2.id,
+      noteId: targetNoteId
+    });
+    lanes = reducer(lanes, {
+      type: types.MOVE,
+      sourceId: sourceNoteId,
+      targetId: targetNoteId,
+    });
+
+    assert.equal(lanes.get(0).notes.length, 0);
+    assert.equal(lanes.get(1).notes.length, 2);
+    assert.equal(lanes.get(1).notes[0], sourceNoteId);
+    assert.equal(lanes.get(1).notes[1], targetNoteId);
   });
 });
