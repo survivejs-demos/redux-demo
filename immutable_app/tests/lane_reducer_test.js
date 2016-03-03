@@ -58,4 +58,8 @@ describe('LaneReducer', () => {
 
     assert.equal(state.count(), 0);
   });
+
+  // TODO: test attach
+  // TODO: test detach
+  // TODO: test move
 });
