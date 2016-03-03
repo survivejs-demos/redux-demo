@@ -52,17 +52,4 @@ describe('NoteReducer', () => {
     assert.equal(state.notes.length, 0);
 */
   });
-
-  it('gets notes', () => {
-/*
-    const task = 'test';
-    NoteActions.create({task: task});
-
-    const note = NoteStore.getState().notes[0];
-    const notes = NoteStore.getNotesByIds([note.id]);
-
-    assert.equal(notes.length, 1);
-    assert.equal(notes[0].task, task);
-*/
-  });
 });
