@@ -37,8 +37,8 @@ describe('NoteReducer', () => {
     });
 
     assert.equal(state.count(), 1);
-    assert.equal(state.get(0).id, note.id);
-    assert.equal(state.get(0).task, updatedTask);
+    assert.equal(state.get(0).get('id'), note.id);
+    assert.equal(state.get(0).get('task'), updatedTask);
   });
 
   it('should not crash while updating a non-existent note', () => {
@@ -58,8 +58,8 @@ describe('NoteReducer', () => {
     });
 
     assert.equal(state.count(), 1);
-    assert.equal(state.get(0).id, note.id);
-    assert.equal(state.get(0).task, note.task);
+    assert.equal(state.get(0).get('id'), note.id);
+    assert.equal(state.get(0).get('task'), note.task);
   });
 
   it('should delete notes', () => {
@@ -96,7 +96,7 @@ describe('NoteReducer', () => {
     });
 
     assert.equal(state.count(), 1);
-    assert.equal(state.get(0).id, note.id);
-    assert.equal(state.get(0).task, note.task);
+    assert.equal(state.get(0).get('id'), note.id);
+    assert.equal(state.get(0).get('task'), note.task);
   });
 });

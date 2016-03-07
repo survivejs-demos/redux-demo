@@ -1,35 +1,32 @@
-import {List} from 'immutable';
+import {List, Map} from 'immutable';
 import * as types from '../actions/notes';
 
 const initialState = List();
 
 export default function notes(state = initialState, action) {
-  let noteId;
+  let noteIndex;
 
   switch (action.type) {
     case types.CREATE_NOTE:
-      return state.push(action.note);
+      return state.push(Map(action.note));
 
     case types.UPDATE_NOTE:
-      noteId = state.findIndex(note => note.id === action.id);
+      noteIndex = state.findIndex(note => note.get('id') === action.id);
 
-      if(noteId < 0) {
+      if(noteIndex < 0) {
         return state;
       }
 
-      return state.update(
-        noteId,
-        note => Object.assign({}, note, action)
-      );
+      return state.mergeIn([noteIndex], action)
 
     case types.DELETE_NOTE:
-      noteId = state.findIndex(note => note.id === action.id);
+      noteIndex = state.findIndex(note => note.get('id') === action.id);
 
-      if(noteId < 0) {
+      if(noteIndex < 0) {
         return state;
       }
 
-      return state.delete(noteId);
+      return state.delete(noteIndex);
 
     default:
       return state;

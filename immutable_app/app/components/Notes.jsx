@@ -12,14 +12,14 @@ export default class Notes extends React.Component {
     const {notes, move, onValueClick, onEdit, onDelete} = this.props;
 
     return (<ul className="notes">{notes.map((note) =>
-      <Note className="note" id={note.id} key={note.id}
-        editing={note.editing} onMove={move}>
+      <Note className="note" id={note.get('id')} key={note.get('id')}
+        editing={note.get('editing')} onMove={move}>
         <Editable
-          editing={note.editing}
-          value={note.task}
-          onValueClick={onValueClick.bind(null, note.id)}
-          onEdit={onEdit.bind(null, note.id)}
-          onDelete={onDelete.bind(null, note.id)} />
+          editing={note.get('editing')}
+          value={note.get('task')}
+          onValueClick={onValueClick.bind(null, note.get('id'))}
+          onEdit={onEdit.bind(null, note.get('id'))}
+          onDelete={onDelete.bind(null, note.get('id'))} />
       </Note>
     )}</ul>);
   }

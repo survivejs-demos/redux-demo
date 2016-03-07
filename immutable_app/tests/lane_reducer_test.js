@@ -1,4 +1,5 @@
 import assert from 'assert';
+import {List} from 'immutable';
 import * as types from 'app/actions/lanes';
 import reducer from 'app/reducers/lanes';
 
@@ -11,20 +12,23 @@ describe('LaneReducer', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
-
-    assert.deepEqual(reducer(undefined, {
+    const result = reducer(undefined, {
       type: types.CREATE_LANE,
       lane: lane
-    }).toJS(), [lane]);
+    }).get(0);
+
+    assert.equal(result.get('id'), lane.id);
+    assert.equal(result.get('name'), lane.name);
+    assert.equal(result.get('notes').count(), 0);
   });
 
   it('should update lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
     const updatedName = 'foofoo';
 
@@ -39,15 +43,15 @@ describe('LaneReducer', () => {
     });
 
     assert.equal(lanes.count(), 1);
-    assert.equal(lanes.get(0).id, lane.id);
-    assert.equal(lanes.get(0).name, updatedName);
+    assert.equal(lanes.get(0).get('id'), lane.id);
+    assert.equal(lanes.get(0).get('name'), updatedName);
   });
 
   it('should not crash while updating a non-existent lane', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
 
     let lanes = reducer(undefined, {
@@ -61,15 +65,15 @@ describe('LaneReducer', () => {
     });
 
     assert.equal(lanes.count(), 1);
-    assert.equal(lanes.get(0).id, lane.id);
-    assert.equal(lanes.get(0).name, lane.name);
+    assert.equal(lanes.get(0).get('id'), lane.id);
+    assert.equal(lanes.get(0).get('name'), lane.name);
   });
 
   it('should delete lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
 
     let lanes = reducer(undefined, {
@@ -89,7 +93,7 @@ describe('LaneReducer', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
 
     let lanes = reducer(undefined, {
@@ -103,15 +107,15 @@ describe('LaneReducer', () => {
     });
 
     assert.equal(lanes.count(), 1);
-    assert.equal(lanes.get(0).id, lane.id);
-    assert.equal(lanes.get(0).name, lane.name);
+    assert.equal(lanes.get(0).get('id'), lane.id);
+    assert.equal(lanes.get(0).get('name'), lane.name);
   });
 
-  it('should attach notes to lanes', () => {
+  it('should attach notes to lane', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
     const noteId = '123456';
 
@@ -125,19 +129,47 @@ describe('LaneReducer', () => {
       noteId: noteId
     });
 
-    assert.equal(lanes.get(0).notes[0], noteId);
+    assert.equal(lanes.get(0).get('notes').get(0), noteId);
+  });
+
+  it('should attach multiple notes to lane', () => {
+    const lane = {
+      id: 'foobar',
+      name: 'demo lane',
+      notes: List()
+    };
+    const noteId = '123456';
+
+    let lanes = reducer(undefined, {
+      type: types.CREATE_LANE,
+      lane: lane
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane.id,
+      noteId: noteId
+    });
+    lanes = reducer(lanes, {
+      type: types.ATTACH_TO_LANE,
+      laneId: lane.id,
+      noteId: noteId + noteId
+    });
+
+    assert.equal(lanes.get(0).get('notes').count(), 2);
+    assert.equal(lanes.get(0).get('notes').get(0), noteId);
+    assert.equal(lanes.get(0).get('notes').get(1), noteId + noteId);
   });
 
   it('should allow only one unique note per lanes when attaching', () => {
     const lane1 = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
     const lane2 = {
       id: 'foobar2',
       name: 'demo lane 2',
-      notes: []
+      notes: List()
     };
     const noteId = '123456';
 
@@ -160,15 +192,15 @@ describe('LaneReducer', () => {
       noteId: noteId
     });
 
-    assert.equal(lanes.get(0).notes.length, 0);
-    assert.equal(lanes.get(1).notes[0], noteId);
+    assert.equal(lanes.get(0).get('notes').count(), 0);
+    assert.equal(lanes.get(1).get('notes').get(0), noteId);
   });
 
   it('should detach notes to lanes', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
     const noteId = '123456';
 
@@ -182,17 +214,17 @@ describe('LaneReducer', () => {
       noteId: noteId
     });
 
-    assert.equal(lanes.get(0).notes.length, 0);
+    assert.equal(lanes.get(0).get('notes').count(), 0);
   });
 
   it('should allow moving notes within a lane', () => {
     const lane = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
-    const sourceNoteId = '123456';
-    const targetNoteId = '654321';
+    const sourceNoteId = 'foo123456';
+    const targetNoteId = 'bar654321';
 
     let lanes = reducer(undefined, {
       type: types.CREATE_LANE,
@@ -214,21 +246,21 @@ describe('LaneReducer', () => {
       targetId: targetNoteId,
     });
 
-    assert.equal(lanes.get(0).notes.length, 2);
-    assert.equal(lanes.get(0).notes[0], targetNoteId);
-    assert.equal(lanes.get(0).notes[1], sourceNoteId);
+    assert.equal(lanes.get(0).get('notes').count(), 2);
+    assert.equal(lanes.get(0).get('notes').get(0), targetNoteId);
+    assert.equal(lanes.get(0).get('notes').get(1), sourceNoteId);
   });
 
   it('should allow moving notes from a lane to lane', () => {
     const lane1 = {
       id: 'foobar',
       name: 'demo lane',
-      notes: []
+      notes: List()
     };
     const lane2 = {
       id: 'foobar2',
       name: 'demo lane 2',
-      notes: []
+      notes: List()
     };
     const sourceNoteId = '123456';
     const targetNoteId = '654321';
@@ -257,9 +289,9 @@ describe('LaneReducer', () => {
       targetId: targetNoteId,
     });
 
-    assert.equal(lanes.get(0).notes.length, 0);
-    assert.equal(lanes.get(1).notes.length, 2);
-    assert.equal(lanes.get(1).notes[0], sourceNoteId);
-    assert.equal(lanes.get(1).notes[1], targetNoteId);
+    assert.equal(lanes.get(0).get('notes').count(), 0);
+    assert.equal(lanes.get(1).get('notes').count(), 2);
+    assert.equal(lanes.get(1).get('notes').get(0), sourceNoteId);
+    assert.equal(lanes.get(1).get('notes').get(1), targetNoteId);
   });
 });

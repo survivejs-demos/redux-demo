@@ -1,14 +1,15 @@
+import {List, Map} from 'immutable';
 import uuid from 'node-uuid';
 
 export const CREATE_LANE = 'CREATE_LANE';
 export function createLane(lane) {
   return {
     type: CREATE_LANE,
-    lane: {
+    lane: Map({
       id: uuid.v4(),
-      notes: lane.notes || [],
+      notes: List(lane.notes || []),
       ...lane
-    }
+    })
   };
 };
 

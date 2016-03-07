@@ -33,10 +33,10 @@ const noteTarget = {
 export default class Lane extends React.Component {
   render() {
     const {connectDropTarget, lane, allNotes, ...props} = this.props;
-    const laneNotes = lane.notes.map(
-      id => allNotes.find(note => note.id === id)
+    const laneNotes = lane.get('notes').map(
+      id => allNotes.find(note => note.get('id') === id)
     );
-    const laneId = lane.id;
+    const laneId = lane.get('id');
 
     return connectDropTarget(
       <div {...props}>
@@ -45,8 +45,8 @@ export default class Lane extends React.Component {
           <div className="lane-add-note">
             <button onClick={this.addNote.bind(this, laneId)}>+</button>
           </div>
-          <Editable className="lane-name" editing={lane.editing}
-            value={lane.name}
+          <Editable className="lane-name" editing={lane.get('editing')}
+            value={lane.get('name')}
             onEdit={name => props.updateLane({id: laneId, name, editing: false})} />
           <div className="lane-delete">
             <button onClick={this.deleteLane.bind(this, laneId)}>x</button>
