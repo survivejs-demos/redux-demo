@@ -52,13 +52,10 @@ export default function lanes(state = initialState, action) {
       );
 
     case types.DETACH_FROM_LANE:
-      return state.map(lane => {
-        if(lane.id === action.laneId) {
-          return lane.deleteIn(['notes', lane.get('notes').indexOf(action.noteId)]);
-        }
-
-        return lane;
-      });
+      return state.updateIn(
+        [state.findIndex(lane => lane.id === action.laneId)],
+        lane => lane.deleteIn(['notes', lane.get('notes').indexOf(action.noteId)])
+      );
 
     case types.MOVE:
       const sourceId = action.sourceId;
