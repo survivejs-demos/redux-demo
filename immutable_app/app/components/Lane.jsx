@@ -21,8 +21,12 @@ const noteTarget = {
   }
 };
 
-@connect((state) => ({
-  allNotes: state.notes
+// If you want to memoize this (more performant),
+// use https://www.npmjs.com/package/reselect
+@connect((state, props) => ({
+  laneNotes: props.lane.get('notes').map(
+    id => state.notes.find(note => note.get('id') === id)
+  )
 }), {
   ...laneActions,
   ...noteActions
@@ -32,10 +36,7 @@ const noteTarget = {
 }))
 export default class Lane extends React.Component {
   render() {
-    const {connectDropTarget, lane, allNotes, ...props} = this.props;
-    const laneNotes = lane.get('notes').map(
-      id => allNotes.find(note => note.get('id') === id)
-    );
+    const {connectDropTarget, lane, laneNotes, ...props} = this.props;
     const laneId = lane.get('id');
 
     return connectDropTarget(
