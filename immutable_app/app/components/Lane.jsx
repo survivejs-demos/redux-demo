@@ -12,9 +12,9 @@ const noteTarget = {
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
 
-    if(!targetProps.lane.notes.length) {
+    if(!targetProps.lane.get('notes').count()) {
       targetProps.attachToLane(
-        targetProps.lane.id,
+        targetProps.lane.get('id'),
         sourceId
       );
     }
