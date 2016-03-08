@@ -88,22 +88,14 @@ export default function lanes(state = initialState, action) {
         return state.map((lane) => {
           if(lane === sourceLane) {
             // get rid of the source note
-            return Map(Object.assign({}, lane, {
-              notes: lane.get('notes').count() > 1 ? List(lane.get('notes').slice(0, sourceNoteIndex).concat(
-                lane.get('notes').slice(sourceNoteIndex + 1)
-              )): List()
-            }));
+            return lane.deleteIn(['notes', sourceNoteIndex]);
           }
 
           if(lane === targetLane) {
             // and move it to target
-            return Map(Object.assign({}, lane, {
-              notes: List(lane.get('notes').slice(0, targetNoteIndex).concat(
-                [sourceId]
-              ).concat(
-                lane.get('notes').slice(targetNoteIndex)
-              ))
-            }));
+            return lane.updateIn(['notes'], notes => notes.insert(
+              targetNoteIndex, sourceId
+            ));
           }
 
           return lane;
