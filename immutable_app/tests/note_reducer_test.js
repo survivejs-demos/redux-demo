@@ -22,7 +22,8 @@ describe('NoteReducer', () => {
   it('should update notes', () => {
     const note = {
       id: 'foobar',
-      task: 'test'
+      task: 'test',
+      editing: true
     };
     const updatedTask = 'foofoo';
 
@@ -39,6 +40,7 @@ describe('NoteReducer', () => {
     assert.equal(state.count(), 1);
     assert.equal(state.get(0).get('id'), note.id);
     assert.equal(state.get(0).get('task'), updatedTask);
+    assert.equal(state.get(0).get('editing'), note.editing);
   });
 
   it('should not crash while updating a non-existent note', () => {

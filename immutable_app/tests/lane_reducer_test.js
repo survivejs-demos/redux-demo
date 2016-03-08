@@ -45,6 +45,7 @@ describe('LaneReducer', () => {
     assert.equal(lanes.count(), 1);
     assert.equal(lanes.get(0).get('id'), lane.id);
     assert.equal(lanes.get(0).get('name'), updatedName);
+    assert.equal(lanes.get(0).get('notes').count(), 0);
   });
 
   it('should not crash while updating a non-existent lane', () => {
