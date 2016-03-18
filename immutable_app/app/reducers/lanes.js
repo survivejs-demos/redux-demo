@@ -67,35 +67,17 @@ export default function lanes(state = initialState, action) {
       const sourceNoteIndex = sourceLane[1].get('notes').indexOf(sourceId);
       const targetNoteIndex = targetLane[1].get('notes').indexOf(targetId);
 
-      // TODO: these portions can likely be simplified by using immutable.js API
-      // in a smarter way
-      if(sourceLane === targetLane) {
-        return state.map((lane) => {
-          return lane.get('id') === sourceLane[1].get('id') ? Map(Object.assign({}, lane, {
-            notes: List(update(sourceLane[1].get('notes').toJS(), {
-              $splice: [
-                [sourceNoteIndex, 1],
-                [targetNoteIndex, 0, sourceId]
-              ]
-            }))
-          })) : lane;
-        });
-      }
-      else {
-        return state.updateIn(
-          // Get rid of the source note
-          [sourceLane[0]],
-          lane => lane.deleteIn(['notes', sourceNoteIndex])
-        ).updateIn(
-          // And move it to the target
-          [targetLane[0]],
-          lane => lane.updateIn(['notes'], notes => notes.insert(
-            targetNoteIndex, sourceId
-          ))
-        );
-      }
-
-      return state;
+      return state.updateIn(
+        // Get rid of the source note
+        [sourceLane[0]],
+        lane => lane.deleteIn(['notes', sourceNoteIndex])
+      ).updateIn(
+        // And move it to the target
+        [targetLane[0]],
+        lane => lane.updateIn(['notes'], notes => notes.insert(
+          targetNoteIndex, sourceId
+        ))
+      );
 
     default:
       return state;
