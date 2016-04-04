@@ -1,4 +1,5 @@
 import React from 'react';
+import {compose} from 'redux';
 import {DragSource, DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 
@@ -22,14 +23,7 @@ const noteTarget = {
   }
 };
 
-@DragSource(ItemTypes.NOTE, noteSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))
-@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
-}))
-export default class Note extends React.Component {
+class Note extends React.Component {
   render() {
     const {connectDragSource, connectDropTarget, isDragging,
       onMove, id, editing, ...props} = this.props;
@@ -43,3 +37,13 @@ export default class Note extends React.Component {
     ));
   }
 }
+
+export default compose(
+  DragSource(ItemTypes.NOTE, noteSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  })),
+  DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+    connectDropTarget: connect.dropTarget()
+  }))
+)(Note);

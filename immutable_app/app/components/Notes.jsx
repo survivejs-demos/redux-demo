@@ -4,10 +4,7 @@ import Editable from './Editable.jsx';
 import Note from './Note.jsx';
 import {move} from '../actions/lanes';
 
-@connect(() => ({}), {
-  move
-})
-export default class Notes extends React.Component {
+class Notes extends React.Component {
   render() {
     const {notes, move, onValueClick, onEdit, onDelete} = this.props;
 
@@ -24,3 +21,7 @@ export default class Notes extends React.Component {
     )}</ul>);
   }
 }
+
+export default connect(() => ({}), {
+  move
+})(Notes);

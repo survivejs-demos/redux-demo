@@ -1,8 +1,9 @@
 import React from 'react';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
+import {DropTarget} from 'react-dnd';
 import Notes from './Notes.jsx';
 import Editable from './Editable.jsx';
-import {DropTarget} from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 import * as laneActions from '../actions/lanes';
 import * as noteActions from '../actions/notes';
@@ -21,20 +22,7 @@ const noteTarget = {
   }
 };
 
-// If you want to memoize this (more performant),
-// use https://www.npmjs.com/package/reselect
-@connect((state, props) => ({
-  laneNotes: props.lane.get('notes').map(
-    id => state.notes.find(note => note.get('id') === id)
-  )
-}), {
-  ...laneActions,
-  ...noteActions
-})
-@DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
-  connectDropTarget: connect.dropTarget()
-}))
-export default class Lane extends React.Component {
+class Lane extends React.Component {
   render() {
     const {connectDropTarget, lane, laneNotes, ...props} = this.props;
     const laneId = lane.get('id');
@@ -79,3 +67,19 @@ export default class Lane extends React.Component {
     this.props.deleteNote(noteId);
   }
 }
+
+export default compose(
+  // If you want to memoize this (more performant),
+  // use https://www.npmjs.com/package/reselect
+  connect((state, props) => ({
+    laneNotes: props.lane.get('notes').map(
+      id => state.notes.find(note => note.get('id') === id)
+    )
+  }), {
+    ...laneActions,
+    ...noteActions
+  }),
+  DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+    connectDropTarget: connect.dropTarget()
+  }))
+)(Lane);
