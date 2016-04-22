@@ -45,7 +45,7 @@ class Lane extends React.Component {
           notes={laneNotes}
           onValueClick={id => props.updateNote({id, editing: true})}
           onEdit={(id, task) => props.updateNote({id, task, editing: false})}
-          onDelete={id => this.deleteNote(laneId, id)} />
+          onDelete={(id, e) => this.deleteNote(laneId, id, e)} />
       </div>
     );
   }
@@ -62,7 +62,9 @@ class Lane extends React.Component {
     });
     this.props.attachToLane(laneId, o.note.id);
   }
-  deleteNote(laneId, noteId) {
+  deleteNote(laneId, noteId, e) {
+    e.stopPropagation();
+
     this.props.detachFromLane(laneId, noteId);
     this.props.deleteNote(noteId);
   }
