@@ -5,7 +5,7 @@ import Root from './containers/Root.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
 
-const APP_STORAGE = 'redux_kanban';
+const APP_STORAGE = 'immutable_kanban';
 
 const store = configureStore(deserialize(storage.get(APP_STORAGE)));
 
