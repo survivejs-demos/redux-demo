@@ -1,17 +1,12 @@
 import React from 'react';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Lanes from '../components/Lanes.jsx';
 import {createLane} from '../actions/lanes';
 
-@DragDropContext(HTML5Backend)
-@connect((state) => ({
-  lanes: state.lanes
-}), {
-  createLane
-})
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     const {lanes, createLane} = this.props;
 
@@ -26,3 +21,12 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default compose(
+  connect(state => ({
+    lanes: state.lanes
+  }), {
+    createLane
+  }),
+  DragDropContext(HTML5Backend)
+)(App);
