@@ -11,7 +11,8 @@ export default function lanes(state = initialState, action) {
     case types.UPDATE_LANE:
       return state.map((lane) => {
         if(lane.id === action.id) {
-          return Object.assign({}, lane, action);
+          const {type, ...updatedLane} = action;
+          return Object.assign({}, lane, updatedLane);
         }
 
         return lane;
