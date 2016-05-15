@@ -10,7 +10,8 @@ export default function notes(state = initialState, action) {
     case types.UPDATE_NOTE:
       return state.map((note) => {
         if(note.id === action.id) {
-          return Object.assign({}, note, action);
+          const {type, ...updatedNote} = action;
+          return Object.assign({}, note, updatedNote);
         }
 
         return note;
