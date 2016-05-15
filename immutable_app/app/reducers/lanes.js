@@ -18,7 +18,8 @@ export default function lanes(state = initialState, action) {
         return state;
       }
 
-      return state.mergeIn([laneIndex], action);
+      const {type, ...updatedLane} = action;
+      return state.mergeIn([laneIndex], updatedLane);
 
     case types.DELETE_LANE:
       laneIndex = state.findIndex(lane => lane.get('id') === action.id);

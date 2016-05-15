@@ -17,7 +17,8 @@ export default function notes(state = initialState, action) {
         return state;
       }
 
-      return state.mergeIn([noteIndex], action)
+      const {type, ...updatedNote} = action;
+      return state.mergeIn([noteIndex], updatedNote);
 
     case types.DELETE_NOTE:
       noteIndex = state.findIndex(note => note.get('id') === action.id);
