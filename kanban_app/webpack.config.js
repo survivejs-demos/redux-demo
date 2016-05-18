@@ -77,6 +77,10 @@ if(TARGET === 'start' || !TARGET) {
           test: /\.css$/,
           loaders: ['style', 'css'],
           include: PATHS.app
+        },
+        {
+          test: require.resolve('react'),
+          loader: 'expose?React'
         }
       ]
     },
