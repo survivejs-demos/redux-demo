@@ -25,17 +25,22 @@ const common = {
     app: PATHS.app
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   output: {
     path: PATHS.build,
     filename: '[name].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel?cacheDirectory'],
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }],
         include: PATHS.app
       }
     ]
@@ -46,6 +51,9 @@ const common = {
       title: 'Kanban app',
       appMountId: 'app',
       inject: false
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
     })
   ]
 };
@@ -60,7 +68,6 @@ if(TARGET === 'start' || !TARGET) {
       historyApiFallback: true,
       hot: true,
       inline: true,
-      progress: true,
 
       // display only errors to reduce the amount of output
       stats: 'errors-only',
@@ -71,17 +78,24 @@ if(TARGET === 'start' || !TARGET) {
       port: ENV.port
     },
     module: {
-      loaders: [
+      rules: [
         // Define development specific CSS setup
         {
           test: /\.css$/,
-          loaders: ['style', 'css'],
+          use: [{
+            loader: 'style-loader'
+          }, {
+            loader: 'css-loader'
+          }],
           include: PATHS.app
         }
       ]
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
+      })
     ]
   });
 }
@@ -103,11 +117,14 @@ if(TARGET === 'build' || TARGET === 'stats') {
       chunkFilename: '[chunkhash].js'
     },
     module: {
-      loaders: [
+      rules: [
         // Extract CSS during build
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract('style', 'css'),
+          use: ExtractTextPlugin.extract({
+            fallback: 'style',
+            use: 'css'
+          }),
           include: PATHS.app
         }
       ]
@@ -127,7 +144,11 @@ if(TARGET === 'build' || TARGET === 'stats') {
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
-        }
+        },
+        sourceMap: true
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
       })
     ]
   });
