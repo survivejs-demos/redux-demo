@@ -1,4 +1,4 @@
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 
 export const CREATE_NOTE = 'CREATE_NOTE';
 export function createNote(note) {

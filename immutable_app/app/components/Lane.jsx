@@ -1,7 +1,7 @@
 import React from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {DropTarget} from 'react-dnd';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { DropTarget } from 'react-dnd';
 import Notes from './Notes.jsx';
 import Editable from './Editable.jsx';
 import ItemTypes from '../constants/itemTypes';
@@ -24,11 +24,14 @@ const noteTarget = {
 
 class Lane extends React.Component {
   render() {
-    const {connectDropTarget, lane, laneNotes, ...props} = this.props;
+    const props = this.props;
+    const {
+      connectDropTarget, lane, laneNotes, className
+    } = props;
     const laneId = lane.get('id');
 
     return connectDropTarget(
-      <div {...props}>
+      <div className={className}>
         <div className="lane-header"
           onClick={() => props.updateLane({id: laneId, editing: true})}>
           <div className="lane-add-note">

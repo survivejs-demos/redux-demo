@@ -1,6 +1,6 @@
 import React from 'react';
-import {compose} from 'redux';
-import {DragSource, DropTarget} from 'react-dnd';
+import { compose } from 'redux';
+import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 
 const noteSource = {

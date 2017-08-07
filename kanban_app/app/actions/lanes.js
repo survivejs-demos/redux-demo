@@ -1,4 +1,4 @@
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 
 export const CREATE_LANE = 'CREATE_LANE';
 export function createLane(lane) {

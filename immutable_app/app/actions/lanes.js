@@ -1,5 +1,5 @@
-import {List, Map} from 'immutable';
-import uuid from 'node-uuid';
+import { List, Map } from 'immutable';
+import uuid from 'uuid';
 
 export const CREATE_LANE = 'CREATE_LANE';
 export function createLane(lane) {

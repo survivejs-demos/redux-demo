@@ -4,6 +4,7 @@ import {fromJS} from 'immutable';
 import Root from './containers/Root.jsx';
 import configureStore from './store/configureStore';
 import storage from './libs/storage';
+import './main.css';
 
 const APP_STORAGE = 'immutable_kanban';
 

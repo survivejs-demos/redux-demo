@@ -1,7 +1,7 @@
 import assert from 'assert';
-import {List} from 'immutable';
-import * as types from 'app/actions/lanes';
-import reducer from 'app/reducers/lanes';
+import { List } from 'immutable';
+import * as types from '../app/actions/lanes';
+import reducer from '../app/reducers/lanes';
 
 describe('LaneReducer', () => {
   it('should return the initial state', () => {

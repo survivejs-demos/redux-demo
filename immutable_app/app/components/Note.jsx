@@ -1,6 +1,6 @@
 import React from 'react';
-import {compose} from 'redux';
-import {DragSource, DropTarget} from 'react-dnd';
+import { compose } from 'redux';
+import { DragSource, DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
 
 const noteSource = {
@@ -8,6 +8,9 @@ const noteSource = {
     return {
       id: props.id
     };
+  },
+  isDragging(props, monitor) {
+    return props.id === monitor.getItem().id
   }
 };
 

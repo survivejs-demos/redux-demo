@@ -1,7 +1,7 @@
 import React from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {DropTarget} from 'react-dnd';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { DropTarget } from 'react-dnd';
 import Notes from './Notes.jsx';
 import Editable from './Editable.jsx';
 import ItemTypes from '../constants/itemTypes';
@@ -24,27 +24,30 @@ const noteTarget = {
 
 class Lane extends React.Component {
   render() {
-    const {connectDropTarget, lane, laneNotes, ...props} = this.props;
+    const props = this.props;
+    const {
+      connectDropTarget, lane, laneNotes, className
+    } = props;
     const laneId = lane.id;
 
     return connectDropTarget(
-      <div {...props}>
+      <div className={className}>
         <div className="lane-header"
-          onClick={() => props.updateLane({id: laneId, editing: true})}>
+          onClick={() => props.updateLane({ id: laneId, editing: true })}>
           <div className="lane-add-note">
             <button onClick={this.addNote.bind(this, laneId)}>+</button>
           </div>
           <Editable className="lane-name" editing={lane.editing}
             value={lane.name}
-            onEdit={name => props.updateLane({id: laneId, name, editing: false})} />
+            onEdit={name => props.updateLane({ id: laneId, name, editing: false })} />
           <div className="lane-delete">
             <button onClick={this.deleteLane.bind(this, lane)}>x</button>
           </div>
         </div>
         <Notes
           notes={laneNotes}
-          onValueClick={id => props.updateNote({id, editing: true})}
-          onEdit={(id, task) => props.updateNote({id, task, editing: false})}
+          onValueClick={id => props.updateNote({ id, editing: true })}
+          onEdit={(id, task) => props.updateNote({ id, task, editing: false })}
           onDelete={(id, e) => this.deleteNote(laneId, id, e)} />
       </div>
     );

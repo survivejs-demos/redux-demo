@@ -1,6 +1,6 @@
 import assert from 'assert';
-import * as types from 'app/actions/notes';
-import reducer from 'app/reducers/notes';
+import * as types from '../app/actions/notes';
+import reducer from '../app/reducers/notes';
 
 describe('NoteReducer', () => {
   it('should return the initial state', () => {
