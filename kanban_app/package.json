@@ -1,7 +1,7 @@
 {
   "name": "kanban_app",
   "version": "0.0.0",
-  "description": "Webpack demo app",
+  "description": "Redux kanban",
   "main": "index.js",
   "scripts": {
     "deploy": "gh-pages -d build",

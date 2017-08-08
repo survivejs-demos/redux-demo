@@ -4,7 +4,7 @@
   "description": "This repository contains [redux](https://rackt.github.io/redux/) port of the [SurviveJS - Webpack and React](http://survivejs.com/) Kanban example.",
   "main": "index.js",
   "scripts": {
-    "prepush": "(cd immutable_app && npm run lint:js -- --fix) && (cd kanban_app && npm run lint:js -- --fix)"
+    "prepush": "(cd immutable_app && npm run lint:js -- --fix) && (cd kanban_app && npm run lint:js -- --fix) && (cd routing_app && npm run lint:js -- --fix)"
   },
   "repository": {
     "type": "git",
