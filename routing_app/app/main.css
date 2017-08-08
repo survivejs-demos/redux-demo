@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: cornsilk;
 
@@ -50,7 +54,13 @@ body {
   visibility: visible;
 }
 
-.add-lane, .lane-add-note button {
+.add-lane {
+  margin-top: 50px;
+  margin-left: 1em;
+}
+
+.add-lane,
+.lane-add-note button {
   cursor: pointer;
 
   background-color: #fdfdfd;
@@ -80,10 +90,10 @@ body {
   padding: 0.5em;
 
   background-color: #fdfdfd;
-  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.3);
+  box-shadow: 0 0 0.3em .03em rgba(0, 0, 0, .3);
 }
 .note:hover {
-  box-shadow: 0 0 0.3em .03em rgba(0,0,0,.7);
+  box-shadow: 0 0 0.3em .03em rgba(0, 0, 0, .7);
 
   transition: .6s;
 }
