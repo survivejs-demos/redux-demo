@@ -1,5 +1,5 @@
-import {createStore, compose} from 'redux';
-import {persistState} from 'redux-devtools';
+import { createStore, compose } from 'redux';
+import { persistState } from 'redux-devtools';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 
@@ -8,6 +8,7 @@ const createStoreWithMiddleware = compose(
   persistState(getDebugSessionKey())
 )(createStore);
 
+// Persist state across debug sessions on refresh
 function getDebugSessionKey() {
   const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
 
