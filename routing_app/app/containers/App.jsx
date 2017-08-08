@@ -6,25 +6,18 @@ import HTML5Backend from "react-dnd-html5-backend";
 import Lanes from "../components/Lanes.jsx";
 import { createLane } from "../actions/lanes";
 
-class App extends React.Component {
-  render() {
-    const { lanes, createLane } = this.props;
-
-    return (
-      <div>
-        <button
-          className="add-lane"
-          onClick={createLane.bind(null, {
-            name: "New lane"
-          })}
-        >
-          +
-        </button>
-        <Lanes lanes={lanes} />
-      </div>
-    );
-  }
-}
+const App = ({ lanes, createLane }) =>
+  <div>
+    <button
+      className="add-lane"
+      onClick={createLane.bind(null, {
+        name: "New lane"
+      })}
+    >
+      +
+    </button>
+    <Lanes lanes={lanes} />
+  </div>;
 
 export default compose(
   connect(
