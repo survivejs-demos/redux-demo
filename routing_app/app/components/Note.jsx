@@ -1,7 +1,7 @@
-import React from 'react';
-import { compose } from 'redux';
-import { DragSource, DropTarget } from 'react-dnd';
-import ItemTypes from '../constants/itemTypes';
+import React from "react";
+import { compose } from "redux";
+import { DragSource, DropTarget } from "react-dnd";
+import ItemTypes from "../constants/itemTypes";
 
 const noteSource = {
   beginDrag(props) {
@@ -10,7 +10,7 @@ const noteSource = {
     };
   },
   isDragging(props, monitor) {
-    return props.id === monitor.getItem().id
+    return props.id === monitor.getItem().id;
   }
 };
 
@@ -20,24 +20,38 @@ const noteTarget = {
     const sourceProps = monitor.getItem();
     const sourceId = sourceProps.id;
 
-    if(sourceId !== targetId) {
-      targetProps.onMove({sourceId, targetId});
+    if (sourceId !== targetId) {
+      targetProps.onMove({ sourceId, targetId });
     }
   }
 };
 
 class Note extends React.Component {
   render() {
-    const {connectDragSource, connectDropTarget, isDragging,
-      onMove, id, editing, ...props} = this.props;
+    const {
+      connectDragSource,
+      connectDropTarget,
+      isDragging,
+      onMove,
+      id,
+      editing,
+      ...props
+    } = this.props;
     // Pass through if we are editing
     const dragSource = editing ? a => a : connectDragSource;
 
-    return dragSource(connectDropTarget(
-      <li style={{
-        opacity: isDragging ? 0 : 1
-      }} {...props}>{props.children}</li>
-    ));
+    return dragSource(
+      connectDropTarget(
+        <li
+          style={{
+            opacity: isDragging ? 0 : 1
+          }}
+          {...props}
+        >
+          {props.children}
+        </li>
+      )
+    );
   }
 }
 
@@ -46,7 +60,7 @@ export default compose(
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   })),
-  DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
+  DropTarget(ItemTypes.NOTE, noteTarget, connect => ({
     connectDropTarget: connect.dropTarget()
   }))
 )(Note);

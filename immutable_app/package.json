@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --env development",
     "test": "karma start",
     "tdd": "karma start --auto-watch --no-single-run",
-    "lint:js": "eslint app/ webpack.config.js"
+    "lint:js": "eslint app/ webpack.config.js --ext jsx"
   },
   "keywords": [
     "webpack",

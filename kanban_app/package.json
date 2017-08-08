@@ -8,7 +8,7 @@
     "stats": "webpack --env production --profile --json > stats.json",
     "build": "webpack --env production",
     "start": "webpack-dev-server --env development",
-    "lint:js": "eslint app/ webpack.config.js"
+    "lint:js": "eslint app/ webpack.config.js --ext jsx"
   },
   "keywords": [
     "webpack",
