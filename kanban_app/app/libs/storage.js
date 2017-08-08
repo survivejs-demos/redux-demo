@@ -2,8 +2,7 @@ export default {
   get: function(k) {
     try {
       return JSON.parse(localStorage.getItem(k));
-    }
-    catch(e) {
+    } catch (e) {
       return null;
     }
   },

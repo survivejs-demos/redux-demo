@@ -1,0 +1,23 @@
+{
+  "name": "redux-demo",
+  "version": "1.0.0",
+  "description": "This repository contains [redux](https://rackt.github.io/redux/) port of the [SurviveJS - Webpack and React](http://survivejs.com/) Kanban example.",
+  "main": "index.js",
+  "scripts": {
+    "prepush": "(cd immutable_app && npm run lint:js -- --fix) && (cd kanban_app && npm run lint:js -- --fix)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/survivejs-demos/redux-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/survivejs-demos/redux-demo/issues"
+  },
+  "homepage": "https://github.com/survivejs-demos/redux-demo#readme",
+  "devDependencies": {
+    "husky": "^0.14.3"
+  }
+}
