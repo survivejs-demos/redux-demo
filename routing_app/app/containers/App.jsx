@@ -4,35 +4,46 @@ import { connect } from "react-redux";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 import { slide as Menu } from "react-burger-menu";
-import Lanes from "../components/Lanes.jsx";
-import { createLane } from "../actions/lanes";
+import Board from "../components/Board.jsx";
+import { createBoard } from "../actions/boards";
 
 class App extends React.Component {
-  state = {
+  /*state = {
     sidebarOpen: false
-  };
+  };*/
   render() {
-    const { lanes, createLane } = this.props;
+    const { boards, selectedBoard, createBoard } = this.props;
 
+    console.log(boards, selectedBoard);
+
+    /*
+<a id="home" className="menu-item" href="/">
+  Home
+</a>
+ */
+
+    // TODO: edit board name + delete board
+    // TODO: select board
     return (
       <div>
         <Menu>
-          <a id="home" className="menu-item" href="/">
-            Home
-          </a>
-          <a id="about" className="menu-item" href="/about">
-            About
-          </a>
+          <button
+            className="add-board"
+            onClick={createBoard.bind(null, {
+              name: "New board"
+            })}
+          >
+            +
+          </button>
+          <ul>
+            {boards.map(board =>
+              <li key={board.id}>
+                {board.name}
+              </li>
+            )}
+          </ul>
         </Menu>
-        <button
-          className="add-lane"
-          onClick={createLane.bind(null, {
-            name: "New lane"
-          })}
-        >
-          +
-        </button>
-        <Lanes lanes={lanes} />
+        <Board board={selectedBoard} />
       </div>
     );
   }
@@ -41,10 +52,14 @@ class App extends React.Component {
 export default compose(
   connect(
     state => ({
-      lanes: state.lanes
+      boards: state.boards,
+      selectedBoardId: state.selectedBoardId,
+      selectedBoard: state.boards.filter(
+        board => board.id === state.selectedBoardId
+      )
     }),
     {
-      createLane
+      createBoard
     }
   ),
   DragDropContext(HTML5Backend)
